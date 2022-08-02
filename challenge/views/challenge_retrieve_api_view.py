@@ -2,8 +2,6 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import generics, filters
 
-from django_filters.rest_framework import DjangoFilterBackend
-
 from challenge.serializers import ChallengeSerializer
 from challenge.models import Challenge, ChallengeCategory
 

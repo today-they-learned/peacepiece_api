@@ -12,7 +12,6 @@ dj-rest-auth==2.2.5
 Django==4.0.6
 django-allauth==0.51.0
 django-environ==0.9.0
-django-filter==22.1
 djangorestframework==3.13.1
 djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==5.2.0
