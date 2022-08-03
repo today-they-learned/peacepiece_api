@@ -7,13 +7,16 @@ class Point(models.Model):
 
     user = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         related_name="points",
-        verbose_name="user",
     )
     pointable_type = models.CharField(
         max_length=10,
     )
     pointable_id = models.IntegerField()
-    amount = models.IntegerField()
+    amount = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        db_table = "point"
+        verbose_name = "Point"
+        verbose_name_plural = "Points"
