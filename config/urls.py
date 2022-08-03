@@ -24,7 +24,7 @@ from rest_framework import permissions
 schema_view = get_schema_view(
     openapi.Info(
         title="peacepiece",
-        default_version='v1',
+        default_version="v1",
         description="API description",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="sualng123@gmail.com"),
@@ -35,10 +35,20 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/user/',include('user.urls')),
-    path('api/challenge/',include('challenge.urls')),
-    path(r'swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path(r'swagger', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path(r'redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-v1'),
+    path("admin/", admin.site.urls),
+    path("api/user/", include("user.urls")),
+    path("api/challenges/", include("challenge.urls")),
+    path(
+        r"swagger(?P<format>\.json|\.yaml)",
+        schema_view.without_ui(cache_timeout=0),
+        name="schema-json",
+    ),
+    path(
+        r"swagger",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
+    path(
+        r"redoc", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc-v1"
+    ),
 ]
