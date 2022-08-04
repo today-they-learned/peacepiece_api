@@ -28,7 +28,6 @@ class Challenge(models.Model):
     )
 
     start_at = models.DateTimeField(
-        auto_now_add=True,
     )
 
     end_at = models.DateTimeField(
