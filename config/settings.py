@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "dj_rest_auth.registration",
     "challenge",
+    "point",
+    "notification",
 ]
 
 MIDDLEWARE = [
