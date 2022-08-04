@@ -39,6 +39,7 @@ urlpatterns = [
     path("api/user/", include("user.urls")),
     path("api/challenges", include("challenge.urls")),
     path("api/point", include("point.urls")),
+    path("api/notification", include("notification.urls")),
     path(
         r"swagger(?P<format>\.json|\.yaml)",
         schema_view.without_ui(cache_timeout=0),
