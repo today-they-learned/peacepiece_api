@@ -24,7 +24,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG") == "True"
 
-ALLOWED_HOSTS = ["*"]  # 임시로 설정.
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
