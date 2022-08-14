@@ -9,6 +9,7 @@ class Point(models.Model):
         User,
         on_delete=models.SET_NULL,
         related_name="point",
+        null=True,
     )
     amount = models.PositiveIntegerField(default=0)
 
