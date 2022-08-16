@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Challenge(models.Model):
     """Model definition for Challenge"""
 
@@ -9,6 +8,11 @@ class Challenge(models.Model):
     )
 
     description = models.TextField(
+    )
+
+    categories = models.ManyToManyField(
+        'challenge.Category',
+        related_name = 'challenges',
     )
 
     prover_cnt = models.PositiveIntegerField(
