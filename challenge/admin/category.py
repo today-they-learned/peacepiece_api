@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from challenge.models import Category
+from challenge.models import ChallengeCategory
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    """Admin View for Category"""
+@admin.register(ChallengeCategory)
+class ChallengeCategoryAdmin(admin.ModelAdmin):
+    """Admin View for ChallengeCategory"""
 
     list_display = (
         'title',

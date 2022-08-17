@@ -11,7 +11,7 @@ class Challenge(models.Model):
     )
 
     categories = models.ManyToManyField(
-        'challenge.Category',
+        'challenge.ChallengeCategory',
         related_name = 'challenges',
     )
 

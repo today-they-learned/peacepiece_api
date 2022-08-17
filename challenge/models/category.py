@@ -1,7 +1,7 @@
 from django.db import models
 
-class Category(models.Model):
-    """Model definition for Category"""
+class ChallengeCategory(models.Model):
+    """Model definition for ChallengeCategory"""
 
     title = models.CharField(
         max_length=50,
