@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "point",
     "notification",
     "challenge",
+    "article",
 ]
 
 MIDDLEWARE = [
