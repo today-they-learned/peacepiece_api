@@ -7,7 +7,7 @@ class ChallengeSuggestion(models.Model):
     """Model definition for ChallengeSuggestion"""
 
     suggester = models.ForeignKey(
-        User,
+        "user.User",
         on_delete=models.SET_NULL,
         null=True,
         related_name="challenge_suggestion",
