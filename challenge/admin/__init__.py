@@ -1,2 +1,3 @@
 from .challenge import ChallengeAdmin
 from .challenge_suggestion import ChallengeSuggestionAdmin
+from .challenge_suggestion_feedback import ChallengeSuggestionFeedback
