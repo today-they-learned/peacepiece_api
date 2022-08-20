@@ -7,6 +7,6 @@ from challenge.models import ChallengeSuggestion
 class ChallengeSuggestionAdmin(admin.ModelAdmin):
     """Admin View for ChallengeSuggestion"""
 
-    list_display = ("suggester", "content", "feedback_cnt")
-    readonly_fields = ("suggester",)
+    list_display = ("challenge", "suggester", "content", "feedback_cnt")
+    readonly_fields = ("challenge", "suggester")
     ordering = ("suggester", "feedback_cnt")
