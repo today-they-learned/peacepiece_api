@@ -1,6 +1,7 @@
 from django.db import models
-from user.models import User
+
 from config.models import BaseModel
+from user.models import User
 
 
 class Point(BaseModel):

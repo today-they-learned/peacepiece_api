@@ -1,5 +1,5 @@
-from django.utils.html import format_html
 from django.urls import reverse
+from django.utils.html import format_html
 
 
 def linkify(field_name):

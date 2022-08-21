@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from point.models import Point
 
 

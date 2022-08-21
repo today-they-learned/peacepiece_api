@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from config.admin import linkify
 from challenge.models import ChallengeSuggestion
+from config.admin import linkify
 
 
 @admin.register(ChallengeSuggestion)
