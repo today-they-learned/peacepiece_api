@@ -7,10 +7,12 @@ class DefaultPagination(PageNumberPagination):
     max_page_size = 30
 
     def get_paginated_response(self, data):
-        return Response({
-            'total_count': self.page.paginator.count,
-            'total_pages': self.page.paginator.num_pages,
-            'current_page': self.page.number,
-            'page_size': self.get_page_size(self.request),
-            'results': data,
-        })
+        return Response(
+            {
+                "total_count": self.page.paginator.count,
+                "total_pages": self.page.paginator.num_pages,
+                "current_page": self.page.number,
+                "page_size": self.get_page_size(self.request),
+                "results": data,
+            }
+        )

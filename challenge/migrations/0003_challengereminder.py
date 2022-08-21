@@ -9,21 +9,41 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('challenge', '0002_category_challengecategory_challenge_categories'),
+        ("challenge", "0002_category_challengecategory_challenge_categories"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ChallengeReminder',
+            name="ChallengeReminder",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='challenge.category')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="challenge.category",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'ChallengeReminder',
-                'verbose_name_plural': 'ChallengeReminders',
-                'db_table': 'challenge_reminder',
+                "verbose_name": "ChallengeReminder",
+                "verbose_name_plural": "ChallengeReminders",
+                "db_table": "challenge_reminder",
             },
         ),
     ]

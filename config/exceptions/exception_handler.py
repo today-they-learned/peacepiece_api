@@ -29,23 +29,23 @@ def exception_handler(exc, context):
 
     if isinstance(exc, ValidationError):
         headers = {}
-        if getattr(exc, 'auth_header', None):
-            headers['WWW-Authenticate'] = exc.auth_header
-        if getattr(exc, 'wait', None):
-            headers['Retry-After'] = '%d' % exc.wait
+        if getattr(exc, "auth_header", None):
+            headers["WWW-Authenticate"] = exc.auth_header
+        if getattr(exc, "wait", None):
+            headers["Retry-After"] = "%d" % exc.wait
         data = exc.message_dict
         return Response(data, status=422, headers=headers)
     if isinstance(exc, exceptions.APIException):
         headers = {}
-        if getattr(exc, 'auth_header', None):
-            headers['WWW-Authenticate'] = exc.auth_header
-        if getattr(exc, 'wait', None):
-            headers['Retry-After'] = '%d' % exc.wait
+        if getattr(exc, "auth_header", None):
+            headers["WWW-Authenticate"] = exc.auth_header
+        if getattr(exc, "wait", None):
+            headers["Retry-After"] = "%d" % exc.wait
 
         if isinstance(exc.detail, (list, dict)):
             data = exc.detail
         else:
-            data = {'detail': exc.detail}
+            data = {"detail": exc.detail}
 
         set_rollback()
         return Response(data, status=exc.status_code, headers=headers)
@@ -65,17 +65,17 @@ def api_exception_handler(exc: Exception, context: dict[str, Any]) -> Response:
         http_code_to_message = {v.value: v.description for v in HTTPStatus}
 
         error_payload = {
-            'error': {
-                'status_code': 0,
-                'message': '',
-                'details': [],
+            "error": {
+                "status_code": 0,
+                "message": "",
+                "details": [],
             }
         }
-        error = error_payload['error']
+        error = error_payload["error"]
         status_code = response.status_code
 
-        error['status_code'] = status_code
-        error['message'] = http_code_to_message[status_code]
-        error['details'] = response.data
+        error["status_code"] = status_code
+        error["message"] = http_code_to_message[status_code]
+        error["details"] = response.data
         response.data = error_payload
     return response

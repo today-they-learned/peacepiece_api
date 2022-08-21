@@ -7,39 +7,71 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('challenge', '0001_initial'),
+        ("challenge", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50)),
-                ('display_order', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50)),
+                ("display_order", models.IntegerField()),
             ],
             options={
-                'verbose_name': 'Category',
-                'verbose_name_plural': 'Categories',
-                'db_table': 'category',
+                "verbose_name": "Category",
+                "verbose_name_plural": "Categories",
+                "db_table": "category",
             },
         ),
         migrations.CreateModel(
-            name='ChallengeCategory',
+            name="ChallengeCategory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='challenge.category')),
-                ('challenge', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='challenge.challenge')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="challenge.category",
+                    ),
+                ),
+                (
+                    "challenge",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="challenge.challenge",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'ChallengeCategory',
-                'verbose_name_plural': 'ChallengeCategories',
-                'db_table': 'challenge_category',
+                "verbose_name": "ChallengeCategory",
+                "verbose_name_plural": "ChallengeCategories",
+                "db_table": "challenge_category",
             },
         ),
         migrations.AddField(
-            model_name='challenge',
-            name='categories',
-            field=models.ManyToManyField(related_name='challenges', through='challenge.ChallengeCategory', to='challenge.category'),
+            model_name="challenge",
+            name="categories",
+            field=models.ManyToManyField(
+                related_name="challenges",
+                through="challenge.ChallengeCategory",
+                to="challenge.category",
+            ),
         ),
     ]
