@@ -11,11 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
 import environ
 import os
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = environ.Path(__file__) - 3
 
 env = environ.Env()
 env.read_env(f"{BASE_DIR}/.env")
@@ -24,18 +23,21 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+]
+
+PACKAGE_APPS = [
     "drf_yasg",
     "user",
     "rest_framework",
@@ -47,13 +49,18 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "dj_rest_auth.registration",
     "corsheaders",
+]
+
+PROJECT_APPS = [
     "point",
     "notification",
     "challenge",
     "article",
 ]
 
-MIDDLEWARE = [
+INSTALLED_APPS = DJANGO_APPS + PACKAGE_APPS + PROJECT_APPS
+
+DJANGO_MIDDLEWARES = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -61,9 +68,14 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+PACKAGE_MIDDELWARES = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
 ]
+
+MIDDLEWARE = DJANGO_MIDDLEWARES + PACKAGE_MIDDELWARES
 
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = "my-app-auth"
@@ -108,12 +120,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-db_from_env = dj_database_url.config(conn_max_age=500)  # DB 설정부분 아래에 입력
-DATABASES["default"].update(db_from_env)  # DB 설정부분 아래에 입력
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
