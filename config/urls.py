@@ -39,6 +39,7 @@ urlpatterns = [
     path("api/user/", include("user.urls")),
     path("api/article/", include("article.urls")),
     path("api/point", include("point.urls")),
+    path("api/challenge", include("challenge.urls")),
     path("api/notification", include("notification.urls")),
     path(
         r"swagger(?P<format>\.json|\.yaml)",
