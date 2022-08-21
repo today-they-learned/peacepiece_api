@@ -175,6 +175,7 @@ REST_FRAMEWORK = {
         '_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'config.paginations.DefaultPagination',
     'EXCEPTION_HANDLER': 'config.exceptions.api_exception_handler',
     "DEFAULT_FILTER_BACKENDS": (
         "django_filters.rest_framework.DjangoFilterBackend",
