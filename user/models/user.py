@@ -1,18 +1,20 @@
 from django.db import models
+
+from config.models import BaseModel
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
-    PermissionsMixin
+    PermissionsMixin,
 )
 
-class UserManager(BaseUserManager):
 
-    def create_user(self,email,password,username=""):
+class UserManager(BaseUserManager):
+    def create_user(self, email, password, username=""):
         if not email:
             raise ValueError(("Users must have an email address"))
 
         user = self.model(
-            email = self.normalize_email(email),
+            email=self.normalize_email(email),
             username=username,
         )
         user.set_password(password)
@@ -20,32 +22,33 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self,email,password,username=""):
+    def create_superuser(self, email, password, username=""):
         user = self.create_user(
-            email = email,
+            email=email,
             username=username,
             password=password,
         )
 
-        user.is_superuser=True
+        user.is_superuser = True
         user.save()
 
         return user
 
-class User(AbstractBaseUser,PermissionsMixin):
+
+class User(AbstractBaseUser, BaseModel, PermissionsMixin):
     """Model definition for User."""
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email"]
 
     username = models.CharField(
-         verbose_name = ("username"),
-        max_length = 50,
+        verbose_name=("username"),
+        max_length=50,
         unique=True,
     )
 
     email = models.EmailField(
-        verbose_name = ("email"),
+        verbose_name=("email"),
         max_length=200,
         unique=True,
     )
@@ -54,6 +57,7 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     class Meta:
         """Meta definition for User."""
+
         verbose_name = "User"
         verbose_name_plural = "Users"
         db_table = "users"
