@@ -14,3 +14,6 @@ class Category(models.Model):
         db_table = "category"
         verbose_name = "Category"
         verbose_name_plural = "Categories"
+
+    def __str__(self) -> str:
+        return f"[{self.id}] {self.title}"

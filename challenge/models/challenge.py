@@ -34,3 +34,6 @@ class Challenge(models.Model):
         db_table = "challenge"
         verbose_name = "Challenge"
         verbose_name_plural = "Challenges"
+
+    def __str__(self) -> str:
+        return f"[{self.id}] {self.title}"
