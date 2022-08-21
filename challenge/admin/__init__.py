@@ -1,2 +1,3 @@
 from .challenge import ChallengeAdmin
-from .category import ChallengeCategoryAdmin
+from .category import CategoryAdmin
+from .challenge_category import ChallengeCategoryAdmin

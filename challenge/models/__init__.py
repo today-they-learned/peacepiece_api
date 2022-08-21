@@ -1,3 +1,4 @@
 from .challenge import Challenge
-from .category import ChallengeCategory
+from .category import Category
+from .challenge_category import ChallengeCategory
 

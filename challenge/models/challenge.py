@@ -11,8 +11,9 @@ class Challenge(models.Model):
     )
 
     categories = models.ManyToManyField(
-        'challenge.ChallengeCategory',
+        'challenge.Category',
         related_name = 'challenges',
+        through = 'challenge.ChallengeCategory'
     )
 
     prover_cnt = models.PositiveIntegerField(
