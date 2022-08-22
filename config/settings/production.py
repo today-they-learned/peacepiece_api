@@ -1,5 +1,6 @@
-from .base import *  # noqa pylint: disable=wildcard-import, unused-wildcard-import
 import dj_database_url
+
+from .base import *  # noqa pylint: disable=wildcard-import, unused-wildcard-import
 
 ALLOWED_HOSTS = ["*"]
 
