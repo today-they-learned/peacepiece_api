@@ -12,8 +12,8 @@ class ArticleAdmin(admin.ModelAdmin):
         "id",
         linkify("writer"),
         "content",
-        # "created_at",
-        # "updated_at",
+        "created_at",
+        "updated_at",
     )
 
     readonly_fields = (
