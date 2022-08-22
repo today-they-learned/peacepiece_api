@@ -1,8 +1,10 @@
 from django.db import models
+
+from config.models import BaseModel
 from user.models import User
 
 
-class Article(models.Model):
+class Article(BaseModel):
     """Model definition for Article"""
 
     writer = models.ForeignKey(

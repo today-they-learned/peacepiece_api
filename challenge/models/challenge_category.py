@@ -1,15 +1,17 @@
 from django.db import models
+from config.models import BaseModel
 
-class ChallengeCategory(models.Model):
+
+class ChallengeCategory(BaseModel):
     """Model definition for ChallengeCategory"""
 
     category = models.ForeignKey(
-        'challenge.Category',
+        "challenge.Category",
         on_delete=models.CASCADE,
     )
 
     challenge = models.ForeignKey(
-        'challenge.Challenge',
+        "challenge.Challenge",
         on_delete=models.CASCADE,
     )
 

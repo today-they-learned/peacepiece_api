@@ -1,8 +1,9 @@
 from django.db import models
 from user.models import User
+from config.models import BaseModel
 
 
-class Point(models.Model):
+class Point(BaseModel):
     """Model definition for Point"""
 
     user = models.ForeignKey(

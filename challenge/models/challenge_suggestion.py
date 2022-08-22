@@ -1,7 +1,8 @@
 from django.db import models
+from config.models import BaseModel
 
 
-class ChallengeSuggestion(models.Model):
+class ChallengeSuggestion(BaseModel):
     """Model definition for ChallengeSuggestion"""
 
     challenge = models.ForeignKey(

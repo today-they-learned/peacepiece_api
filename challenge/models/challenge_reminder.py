@@ -1,15 +1,17 @@
 from django.db import models
+from config.models import BaseModel
 
-class ChallengeReminder(models.Model):
+
+class ChallengeReminder(BaseModel):
     """Model definition for ChallengeReminder"""
 
     user = models.ForeignKey(
-        'user.User',
+        "user.User",
         on_delete=models.CASCADE,
     )
 
     category = models.ForeignKey(
-        'challenge.Category',
+        "challenge.Category",
         on_delete=models.CASCADE,
     )
 
