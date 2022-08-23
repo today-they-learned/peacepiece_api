@@ -173,7 +173,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "config.authentications.CsrfExemptSessionAuthentication",
         "rest_framework.authentication.BasicAuthentication",
-        "rest_auth.jwt_auth.JWTCookieAuthentication",
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PAGINATION_CLASS": "config.paginations.DefaultPagination",
