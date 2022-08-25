@@ -191,5 +191,10 @@ REST_FRAMEWORK = {
     ),
 }
 
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "user.serializers.UserAbstractSerializer",
+    "JWT_SERIALIZER": "user.serializers.UserJWTSerializer",
+}
+
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
