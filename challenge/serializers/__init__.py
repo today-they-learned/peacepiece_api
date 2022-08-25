@@ -1,0 +1,1 @@
+from .challenge_suggestion_serializer import ChallengeSuggestionSerializer, ChallengeSuggestionUpdateSerializer
