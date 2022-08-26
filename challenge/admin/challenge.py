@@ -7,8 +7,17 @@ from challenge.models import Challenge
 class ChallengeAdmin(admin.ModelAdmin):
     """Admin View for Challenge"""
 
-    list_display = ("id", "title", "start_at", "prover_cnt")
+    list_display = (
+        "id",
+        "title",
+        "start_at",
+        "end_at",
+        "prover_cnt",
+    )
 
     readonly_fields = ("prover_cnt",)
 
-    ordering = ("start_at",)
+    ordering = (
+        "start_at",
+        "end_at",
+    )
