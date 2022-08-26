@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DJANGO_APPS = [
+    "jazzmin",  # ADMIN CUSTOM PACKAGE
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -200,3 +201,9 @@ REST_AUTH_SERIALIZERS = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+JAZZMIN_SETTINGS = {
+    "site_title": "PeacePiece",
+    "site_header": "PeacePiece",
+    "site_brand": "PeacePiece",
+}

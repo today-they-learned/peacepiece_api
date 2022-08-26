@@ -17,6 +17,7 @@ django-allauth==0.51.0
 django-cors-headers==3.13.0
 django-environ==0.9.0
 django-filter==22.1
+django-jazzmin==2.5.0
 djangorestframework==3.13.1
 djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==5.2.0
