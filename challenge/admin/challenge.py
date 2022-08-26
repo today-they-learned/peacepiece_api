@@ -3,6 +3,10 @@ from django.contrib import admin
 from challenge.models import Challenge
 
 
+class ImageInline(admin.TabularInline):
+    model = Challenge.images.through
+
+
 @admin.register(Challenge)
 class ChallengeAdmin(admin.ModelAdmin):
     """Admin View for Challenge"""
@@ -14,6 +18,7 @@ class ChallengeAdmin(admin.ModelAdmin):
         "end_at",
         "prover_cnt",
     )
+    inlines = (ImageInline,)
 
     readonly_fields = ("prover_cnt",)
 
