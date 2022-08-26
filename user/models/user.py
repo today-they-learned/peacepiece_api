@@ -4,6 +4,10 @@ from django.db import models
 from config.models import BaseModel
 
 
+def user_avatar_upload_path(instance, filename):
+    return "avatars/user_{}/{}".format(instance.username, filename)
+
+
 class UserManager(BaseUserManager):
     def create_user(self, email, password, username=""):
         if not email:
@@ -49,6 +53,13 @@ class User(AbstractBaseUser, BaseModel, PermissionsMixin):
         unique=True,
     )
 
+    avatar = models.ImageField(
+        null=True,
+        blank=True,
+        verbose_name="프로필 이미지",
+        upload_to=user_avatar_upload_path,
+    )
+
     objects = UserManager()
 
     class Meta:
@@ -61,3 +72,6 @@ class User(AbstractBaseUser, BaseModel, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_superuser
+
+    def __str__(self) -> str:
+        return f"[{self.id}] {self.username} ({self.email})"
