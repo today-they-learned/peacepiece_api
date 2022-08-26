@@ -17,6 +17,6 @@ class ChallengeReminder(BaseModel):
     )
 
     class Meta:
-        db_table = "challenge_reminder"
+        db_table = "challenge_reminders"
         verbose_name = "ChallengeReminder"
         verbose_name_plural = "ChallengeReminders"

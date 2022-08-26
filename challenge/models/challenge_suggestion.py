@@ -6,7 +6,7 @@ from config.models import BaseModel
 class ChallengeSuggestion(BaseModel):
     """Model definition for ChallengeSuggestion"""
 
-    challenge = models.ForeignKey(
+    challenge = models.OneToOneField(
         "challenge.Challenge",
         null=True,
         on_delete=models.SET_NULL,
@@ -17,7 +17,7 @@ class ChallengeSuggestion(BaseModel):
         "user.User",
         on_delete=models.SET_NULL,
         null=True,
-        related_name="challenge_suggestion",
+        related_name="challenge_suggestions",
         verbose_name="제안자",
     )
     content = models.TextField(
@@ -32,6 +32,6 @@ class ChallengeSuggestion(BaseModel):
     )
 
     class Meta:
-        db_table = "challenge_suggestion"
+        db_table = "challenge_suggestions"
         verbose_name = "ChallengeSuggestion"
         verbose_name_plural = "ChallengeSuggestion"

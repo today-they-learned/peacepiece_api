@@ -9,7 +9,7 @@ class Notification(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="notification",
+        related_name="notifications",
     )
     category = models.IntegerField()
     created_at = models.DateTimeField(
@@ -20,6 +20,6 @@ class Notification(models.Model):
     )
 
     class Meta:
-        db_table = "notification"
+        db_table = "notifications"
         verbose_name = "Notification"
         verbose_name_plural = "Notifications"

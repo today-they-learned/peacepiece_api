@@ -10,12 +10,12 @@ class Point(BaseModel):
     user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
-        related_name="point",
+        related_name="points",
         null=True,
     )
     amount = models.PositiveIntegerField(default=0)
 
     class Meta:
-        db_table = "point"
+        db_table = "points"
         verbose_name = "Point"
         verbose_name_plural = "Points"

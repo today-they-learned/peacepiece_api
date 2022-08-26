@@ -11,9 +11,10 @@ class Category(BaseModel):
     )
 
     display_order = models.IntegerField()
+    # TODO: display_order 를 이용한 default scope
 
     class Meta:
-        db_table = "category"
+        db_table = "categories"
         verbose_name = "Category"
         verbose_name_plural = "Categories"
 

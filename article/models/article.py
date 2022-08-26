@@ -1,17 +1,16 @@
 from django.db import models
 
 from config.models import BaseModel
-from user.models import User
 
 
 class Article(BaseModel):
     """Model definition for Article"""
 
     writer = models.ForeignKey(
-        User,
+        "user.User",
         on_delete=models.SET_NULL,
         null=True,
-        related_name="article",
+        related_name="articles",
         verbose_name="작성자",
     )
 
@@ -23,6 +22,6 @@ class Article(BaseModel):
     )
 
     class Meta:
-        db_table = "article"
+        db_table = "articles"
         verbose_name = "Article"
         verbose_name_plural = "Articles"

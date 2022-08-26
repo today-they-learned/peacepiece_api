@@ -27,7 +27,7 @@ class Challenge(BaseModel):
     end_at = models.DateTimeField()
 
     class Meta:
-        db_table = "challenge"
+        db_table = "challenges"
         verbose_name = "Challenge"
         verbose_name_plural = "Challenges"
 
