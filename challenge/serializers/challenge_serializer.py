@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from challenge.models import Challenge
+from file_manager.serializers import ImageSerializer
 
 from .category_serializer import CategorySerializer
 
@@ -11,6 +12,13 @@ class ChallengeSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(
         read_only=True,
         many=True,
+    )
+
+    thumbnail = ImageSerializer(read_only=True)
+
+    images = ImageSerializer(
+        many=True,
+        read_only=True,
     )
 
     class Meta:
@@ -24,6 +32,8 @@ class ChallengeSerializer(serializers.ModelSerializer):
             "categories",
             "prover_cnt",
             "point",
+            "thumbnail",
+            "images",
             "start_at",
             "end_at",
         ]

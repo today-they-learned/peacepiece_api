@@ -26,6 +26,22 @@ class Challenge(BaseModel):
 
     end_at = models.DateTimeField()
 
+    thumbnail = models.OneToOneField(
+        "file_manager.Image",
+        related_name="challenge",
+        verbose_name="썸네일",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    images = models.ManyToManyField(
+        "file_manager.Image",
+        related_name="challenges",
+        through="file_manager.ChallengeImage",
+        through_fields=("challenge", "image"),
+    )
+
     class Meta:
         db_table = "challenges"
         verbose_name = "Challenge"
