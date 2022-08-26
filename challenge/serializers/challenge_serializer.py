@@ -2,11 +2,19 @@ from rest_framework import serializers
 
 from challenge.models import Challenge
 
-class ChallengeListSerializer(serializers.ModelSerializer):
+from .category_serializer import CategorySerializer
+
+
+class ChallengeSerializer(serializers.ModelSerializer):
     """Serializer definition for Challenge Model."""
 
+    categories = CategorySerializer(
+        read_only=True,
+        many=True,
+    )
+
     class Meta:
-        """Meta definition for ChallengeListSerializer."""
+        """Meta definition for ChallengeSerializer."""
 
         model = Challenge
         fields = [

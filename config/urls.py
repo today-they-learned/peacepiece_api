@@ -36,11 +36,11 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/user/", include("user.urls")),
-    path("api/article/", include("article.urls")),
-    path("api/point", include("point.urls")),
-    path("api/challenge", include("challenge.urls")),
-    path("api/notification", include("notification.urls")),
+    path("users/", include("user.urls")),
+    path("articles/", include("article.urls")),
+    path("points/", include("point.urls")),
+    path("challenges/", include("challenge.urls")),
+    path("notifications/", include("notification.urls")),
     re_path(
         r"swagger(?P<format>\.json|\.yaml)",
         schema_view.without_ui(cache_timeout=0),

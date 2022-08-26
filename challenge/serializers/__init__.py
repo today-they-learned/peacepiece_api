@@ -1,1 +1,1 @@
-from .challenge_list_serializer import ChallengeListSerializer
+from .challenge_serializer import ChallengeSerializer

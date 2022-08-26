@@ -1,2 +1,1 @@
-from .challenge_view_set import ChallengeListAPIView, ChallengeRetrieveAPIView
-
+from .challenge_view_set import ChallengeViewSet
