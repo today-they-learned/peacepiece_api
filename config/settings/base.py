@@ -40,7 +40,6 @@ DJANGO_APPS = [
 
 PACKAGE_APPS = [
     "drf_yasg",
-    "user",
     "rest_framework",
     "rest_framework.authtoken",
     "dj_rest_auth",
@@ -53,13 +52,15 @@ PACKAGE_APPS = [
 ]
 
 PROJECT_APPS = [
+    "user",
     "point",
     "notification",
     "challenge",
     "article",
+    "file_manager",
 ]
 
-INSTALLED_APPS = DJANGO_APPS + PACKAGE_APPS + PROJECT_APPS
+INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + PACKAGE_APPS
 
 DJANGO_MIDDLEWARES = [
     "django.middleware.security.SecurityMiddleware",
