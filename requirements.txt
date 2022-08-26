@@ -20,6 +20,7 @@ django-filter==22.1
 djangorestframework==3.13.1
 djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==5.2.0
+drf-writable-nested==0.7.0
 drf-yasg==1.21.3
 filelock==3.7.1
 gunicorn==20.1.0
