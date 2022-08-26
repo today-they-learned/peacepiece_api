@@ -1,1 +1,2 @@
+from .challenge_abstract_serializer import ChallengeAbstractSerializer
 from .challenge_serializer import ChallengeSerializer
