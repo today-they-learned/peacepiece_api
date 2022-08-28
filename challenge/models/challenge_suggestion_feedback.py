@@ -25,3 +25,9 @@ class ChallengeSuggestionFeedback(BaseModel):
         db_table = "challenge_suggestion_feedbacks"
         verbose_name = "ChallengeSuggestionFeedback"
         verbose_name_plural = "ChallengeSuggestionFeedback"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "suggestion"],
+                name="unique_suggestion_by_user",
+            )
+        ]
