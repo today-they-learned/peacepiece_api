@@ -1,4 +1,3 @@
-from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from challenge.views import ChallengeSuggestionFeedbackView, ChallengeSuggestionViewSet, ChallengeViewSet
@@ -6,9 +5,9 @@ from challenge.views import ChallengeSuggestionFeedbackView, ChallengeSuggestion
 app_name = "challenge"
 
 router = DefaultRouter()
+router.register("suggestions/feedbacks", ChallengeSuggestionFeedbackView, basename="ChallengeSuggestionFeedback")
+router.register("suggestions", ChallengeSuggestionViewSet, basename="ChallengeSuggestion")
 router.register("", ChallengeViewSet, basename="Challenge")
-router.register("suggestion", ChallengeSuggestionViewSet, basename="ChallengeSuggestion")
-router.register("suggestion/feedback", ChallengeSuggestionFeedbackView, basename="ChallengeSuggestionFeedback")
 
 urlpatterns = []
 
