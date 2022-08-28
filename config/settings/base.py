@@ -195,7 +195,7 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    "USER_DETAILS_SERIALIZER": "user.serializers.UserAbstractSerializer",
+    "USER_DETAILS_SERIALIZER": "user.serializers.UserSerializer",
     "JWT_SERIALIZER": "user.serializers.UserJWTSerializer",
 }
 
