@@ -4,7 +4,7 @@ from rest_framework import serializers
 User = get_user_model()
 
 
-class UserAbstractSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     avatar = serializers.ImageField(
         use_url=True,
     )
@@ -21,5 +21,4 @@ class UserAbstractSerializer(serializers.ModelSerializer):
             "id",
             "username",
             "email",
-            "avatar",
         ]
