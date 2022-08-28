@@ -1,8 +1,9 @@
 from rest_framework import serializers
 
-from challenge.models import ChallengeSuggestionFeedback
-from challenge.serializers import ChallengeSuggestionSerializer
+from challenge.models import ChallengeSuggestion, ChallengeSuggestionFeedback
 from user.serializers import UserAbstractSerializer
+
+from .challenge_suggestion_serializer import ChallengeSuggestionSerializer
 
 
 class ChallengeSuggestionFeedbackSerializer(serializers.ModelSerializer):
