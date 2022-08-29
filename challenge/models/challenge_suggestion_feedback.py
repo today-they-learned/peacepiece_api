@@ -1,7 +1,9 @@
 from django.db import models
 
+from config.models import BaseModel
 
-class ChallengeSuggestionFeedback(models.Model):
+
+class ChallengeSuggestionFeedback(BaseModel):
     """Model definition for ChallengeSuggestionFeedback"""
 
     suggestion = models.ForeignKey(
@@ -23,3 +25,9 @@ class ChallengeSuggestionFeedback(models.Model):
         db_table = "challenge_suggestion_feedbacks"
         verbose_name = "ChallengeSuggestionFeedback"
         verbose_name_plural = "ChallengeSuggestionFeedback"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "suggestion"],
+                name="unique_suggestion_by_user",
+            )
+        ]

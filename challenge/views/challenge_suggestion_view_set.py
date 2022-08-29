@@ -2,13 +2,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter, SearchFilter
 
 from challenge.models import ChallengeSuggestion
-from challenge.serializers import ChallengeAbstractSerializer, ChallengeSerializer, ChallengeSuggestionSerializer
+from challenge.serializers import ChallengeSuggestionSerializer, ChallengeSuggestionUpdateSerializer
 from config.viewsets import BaseModelViewSet
 
 
 class ChallengeSuggestionViewSet(BaseModelViewSet):
     queryset = ChallengeSuggestion.objects.all()
-    serializer_class = ChallengeSuggestionSerializer
     filter_backends = [
         OrderingFilter,
         SearchFilter,
@@ -19,9 +18,9 @@ class ChallengeSuggestionViewSet(BaseModelViewSet):
 
     def get_serializer_class(self):
         if self.action == "update" or self.action == "partial_update":
-            return ProductUpdateSerializer
+            return ChallengeSuggestionUpdateSerializer
 
-        return ChallengeSerializer
+        return ChallengeSuggestionSerializer
 
     def perform_create(self, serializer):
         return serializer.save(suggester=self.request.user)

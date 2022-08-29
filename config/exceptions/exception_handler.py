@@ -47,6 +47,22 @@ def exception_handler(exc, context):
 
         set_rollback()
         return Response(data, status=exc.status_code, headers=headers)
+    if isinstance(exc, IntegrityError):
+        headers = {}
+        if getattr(exc, "auth_header", None):
+            headers["WWW-Authenticate"] = exc.auth_header
+        if getattr(exc, "wait", None):
+            headers["Retry-After"] = "%d" % exc.wait
+        data = str(exc.args)
+
+        # FIXME: 나중에 unique constraints 관련 오류 핸들링 방식을 찾아보기
+        if (
+            "unique_suggestion_by_user" in data
+            or "UNIQUE constraint failed: challenge_suggestion_feedbacks.user_id, challenge_suggestion_feedbacks.suggestion_id"
+            in data
+        ):
+            data = {"suggestion": ["이미 좋아요를 눌렀습니다."]}
+        return Response(data, status=422, headers=headers)
 
     return None
 

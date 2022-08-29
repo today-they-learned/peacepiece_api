@@ -2,8 +2,9 @@ from django.db import transaction
 from rest_framework import serializers
 
 from challenge.models import ChallengeSuggestion
-from challenge.serializers import ChallengeSerializer
 from user.serializers import UserAbstractSerializer
+
+from .challenge_serializer import ChallengeSerializer
 
 
 class ChallengeSuggestionSerializer(serializers.ModelSerializer):

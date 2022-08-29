@@ -8,4 +8,3 @@ class ChallengeSuggestionFeedbackAdmin(admin.ModelAdmin):
     """Admin View for ChallengeSuggestionFeedback"""
 
     list_display = ("suggestion", "user")
-    readonly_fields = ("suggestion", "user")
