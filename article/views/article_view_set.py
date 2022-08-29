@@ -1,27 +1,29 @@
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.response import Response
 from rest_framework import filters
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
-from article.serializers import ArticleListSerializer, ArticleSerializer
-from article.permissions import IsArticleEditableOrDestroyable
 from article.models import Article
+from article.permissions import IsArticleEditableOrDestroyable
+from article.serializers import ArticleListSerializer, ArticleSerializer, ArticleUpdateSerialzier
+
 
 class ArticleViewSet(ModelViewSet):
-    serializer_class = ArticleListSerializer
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
         IsArticleEditableOrDestroyable,
     ]
-    queryset = Article.objects.all().select_related('writer')
-    filterset_fields = ['content']
+    queryset = Article.objects.all().select_related("writer")
+    filterset_fields = ["content", "writer"]
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['created_at', 'updated_at']
-    ordering = ['-updated_at']
+    ordering_fields = ["created_at", "updated_at"]
+    ordering = ["-updated_at"]
 
     def get_serializer_class(self):
-        if self.action == 'create' or self.action == 'update':
+        if self.action == "create":
             return ArticleSerializer
+        if self.action == "update" or self.action == "partial_update":
+            return ArticleUpdateSerialzier
 
         return ArticleListSerializer
 
@@ -64,7 +66,7 @@ class ArticleViewSet(ModelViewSet):
         """
         글의 목록을 반환합니다.
         """
-        queryset = self.filter_queryset(self.get_queryset().filter(writer=self.request.user))
+        queryset = self.filter_queryset(self.get_queryset())
 
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -73,4 +75,3 @@ class ArticleViewSet(ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
