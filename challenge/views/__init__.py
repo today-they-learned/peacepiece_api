@@ -1,1 +1,3 @@
+from .challenge_suggestion_feedback_view_set import ChallengeSuggestionFeedbackView
+from .challenge_suggestion_view_set import ChallengeSuggestionViewSet
 from .challenge_view_set import ChallengeViewSet
