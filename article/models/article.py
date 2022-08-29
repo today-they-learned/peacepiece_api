@@ -21,6 +21,13 @@ class Article(BaseModel):
         max_length=300,
     )
 
+    images = models.ManyToManyField(
+        "file_manager.Image",
+        related_name="images",
+        through="file_manager.ArticleImage",
+        through_fields=("article", "image"),
+    )
+
     class Meta:
         db_table = "articles"
         verbose_name = "Article"
