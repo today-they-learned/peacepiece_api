@@ -1,7 +1,6 @@
 from django.db import models
 
 from config.models import BaseModel
-from user.models import User
 
 
 class ChallengeArticle(BaseModel):
