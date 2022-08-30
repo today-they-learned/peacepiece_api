@@ -1,14 +1,20 @@
 from rest_framework import serializers
 
-from user.serializers import UserAbstractSerializer
 from article.models import Article
+from file_manager.serializers import ImageSerializer
+from user.serializers import UserAbstractSerializer
 
 
 class ArticleListSerializer(serializers.ModelSerializer):
     """Serializer definition for Article Model."""
 
     writer = UserAbstractSerializer(
-        read_only = True,
+        read_only=True,
+    )
+
+    images = ImageSerializer(
+        many=True,
+        read_only=True,
     )
 
     class Meta:
@@ -20,6 +26,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
             "id",
             "writer",
             "content",
+            "images",
             "created_at",
             "updated_at",
         ]

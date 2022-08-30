@@ -1,14 +1,20 @@
-from rest_framework import serializers
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 from article.models import Article
+from file_manager.serializers import ImageSerializer
 from user.serializers import UserAbstractSerializer
 
 
-class ArticleSerializer(serializers.ModelSerializer):
+class ArticleSerializer(WritableNestedModelSerializer):
     """Serializer definition for Article Model."""
 
     writer = UserAbstractSerializer(
-        read_only = True,
+        read_only=True,
+    )
+
+    images = ImageSerializer(
+        many=True,
+        required=False,
     )
 
     class Meta:
@@ -20,6 +26,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             "id",
             "writer",
             "content",
+            "images",
             "created_at",
             "updated_at",
         ]
@@ -31,3 +38,8 @@ class ArticleSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
+        extra_kwargs = {
+            "content": {
+                "required": True,
+            }
+        }
