@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from challenge.views import (
     CategoryListAPIView,
+    ChallengeReminderAPIView,
     ChallengeSuggestionFeedbackAPIView,
     ChallengeSuggestionViewSet,
     ChallengeViewSet,
@@ -19,6 +20,11 @@ urlpatterns = [
         "suggestions/<int:suggestion_id>/feedbacks/",
         ChallengeSuggestionFeedbackAPIView.as_view(),
         name="ChallengeSuggestionFeedback",
+    ),
+    path(
+        "categories/<int:category_id>/reminders/",
+        ChallengeReminderAPIView.as_view(),
+        name="ChallengeReminders",
     ),
     path(
         "categories/",

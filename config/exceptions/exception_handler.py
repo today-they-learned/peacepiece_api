@@ -67,6 +67,11 @@ def exception_handler(exc, context):
             or "UNIQUE constraint failed: articles.writer_id, articles.challenge_id" in data
         ):
             data = {"challenge": ["이미 인증한 챌린지입니다."]}
+        elif (
+            "unique_category_by_user" in data
+            or "UNIQUE constraint failed: challenge_reminders.user_id, challenge_reminders.category_id" in data
+        ):
+            data = {"category": ["이미 등록한 알림입니다."]}
         else:
             data = {"unexpected_error": data}
 
