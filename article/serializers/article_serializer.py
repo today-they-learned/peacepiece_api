@@ -1,6 +1,9 @@
 from drf_writable_nested.serializers import WritableNestedModelSerializer
+from rest_framework import serializers
 
 from article.models import Article
+from challenge.models import Challenge
+from challenge.serializers import ChallengeAbstractSerializer
 from file_manager.serializers import ImageSerializer
 from user.serializers import UserAbstractSerializer
 
@@ -17,6 +20,16 @@ class ArticleSerializer(WritableNestedModelSerializer):
         required=False,
     )
 
+    challenge_id = serializers.PrimaryKeyRelatedField(
+        source="challenge",
+        queryset=Challenge.objects.all(),
+        write_only=True,
+    )
+
+    challenge = ChallengeAbstractSerializer(
+        read_only=True,
+    )
+
     class Meta:
         """Meta definition for ArticleSerializer."""
 
@@ -27,6 +40,8 @@ class ArticleSerializer(WritableNestedModelSerializer):
             "writer",
             "content",
             "images",
+            "challenge_id",
+            "challenge",
             "created_at",
             "updated_at",
         ]
