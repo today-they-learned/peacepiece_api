@@ -14,6 +14,13 @@ class Article(BaseModel):
         verbose_name="작성자",
     )
 
+    challenge = models.ForeignKey(
+        "challenge.Challenge",
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="articles",
+    )
+
     content = models.TextField(
         verbose_name="내용",
         null=True,
