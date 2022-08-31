@@ -1,6 +1,7 @@
+from django.http import QueryDict
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView, GenericAPIView
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
@@ -8,8 +9,9 @@ from challenge.models import Category, ChallengeReminder
 from challenge.serializers import ChallengeReminderSerializer
 
 
-class ChallengeReminderAPIView(GenericAPIView):
+class ChallengeReminderAPIView(CreateAPIView, GenericAPIView):
     serializer_class = ChallengeReminderSerializer
+    queryset = ChallengeReminder.objects.all()
 
     def get_success_headers(self, data):
         try:
@@ -17,29 +19,25 @@ class ChallengeReminderAPIView(GenericAPIView):
         except (TypeError, KeyError):
             return {}
 
-    def post(self, request, category_id, *args, **kwargs):
-        """
-        챌린지 알림 설정 API
-        """
-        serializer = self.get_serializer(data=request.data)
-        get_object_or_404(Category, pk=category_id)
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
 
-        serializer.is_valid(raise_exception=True)
-        serializer.save(
-            user=self.request.user,
-            category_id=category_id,
-        )
+    def get(self, request, *args, **kwargs):
+        queryset = ChallengeReminder.objects.filter(user=request.user)
 
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        serializer = self.get_serializer(queryset, many=True)
 
-    def delete(self, request, category_id, *args, **kwargs):
+        return Response(serializer.data)
+
+    def delete(self, request, *args, **kwargs):
         """
         챌린지 알림 설정 취소 API
         """
+        req_body = request.data
+
         challenge_reminder = get_object_or_404(
             ChallengeReminder,
-            category_id=category_id,
+            category_id=req_body["category_id"],
             user=self.request.user,
         )
 

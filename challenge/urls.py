@@ -22,7 +22,7 @@ urlpatterns = [
         name="ChallengeSuggestionFeedback",
     ),
     path(
-        "categories/<int:category_id>/reminders/",
+        "reminders/",
         ChallengeReminderAPIView.as_view(),
         name="ChallengeReminders",
     ),
