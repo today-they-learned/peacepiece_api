@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from article.models import Article
+from challenge.serializers import ChallengeAbstractSerializer
 from file_manager.serializers import ImageSerializer
 from user.serializers import UserAbstractSerializer
 
@@ -17,6 +18,8 @@ class ArticleListSerializer(serializers.ModelSerializer):
         read_only=True,
     )
 
+    challenge = ChallengeAbstractSerializer(read_only=True)
+
     class Meta:
         """Meta definition for ArticleListSerializer."""
 
@@ -27,6 +30,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
             "writer",
             "content",
             "images",
+            "challenge",
             "created_at",
             "updated_at",
         ]
