@@ -15,6 +15,8 @@ from pathlib import Path
 
 import environ
 
+from config.utils import create_directory_if_not_exists, create_file_if_not_exists
+
 BASE_DIR = environ.Path(__file__) - 3
 
 env = environ.Env()
@@ -206,4 +208,56 @@ JAZZMIN_SETTINGS = {
     "site_title": "PeacePiece",
     "site_header": "PeacePiece",
     "site_brand": "PeacePiece",
+}
+
+LOG_DIR_PATH = os.path.join(BASE_DIR, "logs/")
+SQL_LOG_FILE_PATH = os.path.join(BASE_DIR, "logs/sql_logfile.log")
+WEB_LOG_FILE_PATH = os.path.join(BASE_DIR, "logs/logfile.log")
+
+create_directory_if_not_exists(str(LOG_DIR_PATH))
+create_file_if_not_exists(str(SQL_LOG_FILE_PATH))
+create_file_if_not_exists(str(WEB_LOG_FILE_PATH))
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "logFormat": {
+            "format": "{levelname} ... [{name}:{lineno}] {asctime} {message}",
+            "datefmt": "%d/%b/%Y %H:%M:%S",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "sql_logger": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "logFormat"},
+        "web_logger": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "logFormat",
+        },
+        "sql_log_file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": SQL_LOG_FILE_PATH,
+            "formatter": "logFormat",
+        },
+        "web_log_file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": WEB_LOG_FILE_PATH,
+            "formatter": "logFormat",
+        },
+    },
+    "loggers": {
+        "django.db.backends": {
+            "handlers": [
+                "sql_logger",
+                "web_logger",
+                "sql_log_file",
+                "web_log_file",
+            ],
+            "level": "DEBUG",
+            "formatter": "logFormat",
+        },
+    },
 }

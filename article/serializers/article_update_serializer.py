@@ -42,6 +42,7 @@ class ArticleUpdateSerialzier(ArticleSerializer):
             "content",
             "image_ids",
             "images",
+            "challenge",
             "created_at",
             "updated_at",
         ]

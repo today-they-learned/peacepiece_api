@@ -11,7 +11,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         linkify("writer"),
-        "content",
+        linkify("challenge"),
         "created_at",
         "updated_at",
     )
