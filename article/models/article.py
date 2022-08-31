@@ -39,3 +39,9 @@ class Article(BaseModel):
         db_table = "articles"
         verbose_name = "Article"
         verbose_name_plural = "Articles"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["writer", "challenge"],
+                name="unique_challenge_article_by_user",
+            )
+        ]

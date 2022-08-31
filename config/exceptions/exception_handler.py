@@ -62,6 +62,14 @@ def exception_handler(exc, context):
             in data
         ):
             data = {"suggestion": ["이미 좋아요를 눌렀습니다."]}
+        elif (
+            "unique_challenge_article_by_user" in data
+            or "UNIQUE constraint failed: articles.writer_id, articles.challenge_id"
+        ):
+            data = {"challenge": ["이미 인증한 챌린지입니다."]}
+        else:
+            data = {"unexpected_error": data}
+
         return Response(data, status=422, headers=headers)
 
     return None
