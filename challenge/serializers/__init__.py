@@ -1,3 +1,4 @@
+from .category_serializer import CategorySerializer
 from .challenge_abstract_serializer import ChallengeAbstractSerializer
 from .challenge_serializer import ChallengeSerializer
 from .challenge_suggestion_feedback_serializer import ChallengeSuggestionFeedbackSerializer
