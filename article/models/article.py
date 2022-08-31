@@ -30,7 +30,7 @@ class Article(BaseModel):
 
     images = models.ManyToManyField(
         "file_manager.Image",
-        related_name="images",
+        related_name="articles",
         through="file_manager.ArticleImage",
         through_fields=("article", "image"),
     )
