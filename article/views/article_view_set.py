@@ -13,7 +13,19 @@ class ArticleViewSet(ModelViewSet):
         IsAuthenticatedOrReadOnly,
         IsArticleEditableOrDestroyable,
     ]
-    queryset = Article.objects.all().select_related("writer")
+    queryset = (
+        Article.objects.all()
+        .select_related(
+            "challenge",
+            "writer",
+        )
+        .prefetch_related(
+            "images",
+            "challenge__categories",
+            "challenge__thumbnail",
+            "challenge__images",
+        )
+    )
     filterset_fields = ["content", "writer"]
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ["created_at", "updated_at"]
