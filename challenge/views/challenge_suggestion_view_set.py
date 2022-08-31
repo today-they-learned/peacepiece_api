@@ -1,6 +1,3 @@
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import OrderingFilter, SearchFilter
-
 from challenge.models import ChallengeSuggestion
 from challenge.serializers import ChallengeSuggestionSerializer, ChallengeSuggestionUpdateSerializer
 from config.viewsets import BaseModelViewSet
@@ -8,11 +5,6 @@ from config.viewsets import BaseModelViewSet
 
 class ChallengeSuggestionViewSet(BaseModelViewSet):
     queryset = ChallengeSuggestion.objects.all()
-    filter_backends = [
-        OrderingFilter,
-        SearchFilter,
-        DjangoFilterBackend,
-    ]
     search_fields = ["challenge", "suggester"]
     ordering_fields = ["feedback_cnt", "created_at", "updated_at"]
 
