@@ -1,17 +1,25 @@
 from django.db import models
 
-from config.models import BaseModel
+from config.models import BaseModel, ModelManager
+
+
+class CategoryModelManager(ModelManager):
+    """Model Manager definition for Category"""
+
+    def get_queryset(self):
+        return super().get_queryset().order_by("-display_order")
 
 
 class Category(BaseModel):
     """Model definition for Category"""
+
+    objects = CategoryModelManager()
 
     title = models.CharField(
         max_length=50,
     )
 
     display_order = models.IntegerField()
-    # TODO: display_order 를 이용한 default scope
 
     class Meta:
         db_table = "categories"
