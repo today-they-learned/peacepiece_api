@@ -20,3 +20,9 @@ class ChallengeReminder(BaseModel):
         db_table = "challenge_reminders"
         verbose_name = "ChallengeReminder"
         verbose_name_plural = "ChallengeReminders"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "category"],
+                name="unique_category_by_user",
+            )
+        ]
