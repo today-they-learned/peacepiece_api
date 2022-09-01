@@ -9,16 +9,16 @@ class ArticleFeedback(BaseModel):
     article = models.ForeignKey(
         'article.Article',
         on_delete=models.CASCADE,
-        related_name='feedbacks',
+        related_name='article_feedbacks',
     )
 
     feedback = models.ForeignKey(
         'feedback.Feedback',
         on_delete=models.CASCADE,
-        related_name='feedbacks',
+        related_name='article_feedbacks',
     )
 
-    count = models.IntegerField(
+    count = models.PositiveIntegerField(
         default=0,
     )
 
