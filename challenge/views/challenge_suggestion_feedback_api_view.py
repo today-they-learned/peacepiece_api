@@ -29,6 +29,7 @@ class ChallengeSuggestionFeedbackAPIView(GenericAPIView):
             user=self.request.user,
             suggestion_id=suggestion_id,
         )
+        ChallengeSuggestion.increment_feedback_count()
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
@@ -44,5 +45,6 @@ class ChallengeSuggestionFeedbackAPIView(GenericAPIView):
         )
 
         suggetsion_feedback.delete()
+        ChallengeSuggestion.decrement_feedback_count()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
