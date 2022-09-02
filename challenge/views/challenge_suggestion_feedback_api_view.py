@@ -38,13 +38,12 @@ class ChallengeSuggestionFeedbackAPIView(GenericAPIView):
         """
         챌린지 제안 좋아요 취소 API
         """
-        suggetsion_feedback = get_object_or_404(
+        suggestion_feedback = get_object_or_404(
             ChallengeSuggestionFeedback,
             suggestion_id=suggestion_id,
             user=self.request.user,
         )
-
-        suggetsion_feedback.delete()
         ChallengeSuggestion.decrement_feedback_count()
+        suggestion_feedback.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)

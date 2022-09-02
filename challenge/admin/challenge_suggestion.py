@@ -21,7 +21,7 @@ class ChallengeSuggestionAdmin(admin.ModelAdmin):
         linkify("challenge"),
         linkify("suggester"),
         "content",
-        "feedback_cnt",
+        "feedback_count",
     )
     readonly_fields = ("challenge", "suggester")
-    ordering = ("suggester", "feedback_cnt")
+    ordering = ("suggester", "feedback_count")

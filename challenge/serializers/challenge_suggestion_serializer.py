@@ -1,6 +1,6 @@
 from django.db import transaction
-from rest_framework import serializers
 from drf_yasg.utils import swagger_serializer_method
+from rest_framework import serializers
 
 from challenge.models import ChallengeSuggestion
 from user.serializers import UserAbstractSerializer
@@ -13,7 +13,7 @@ class ChallengeSuggestionSerializer(serializers.ModelSerializer):
 
     challenge = ChallengeSerializer(read_only=True)
     suggester = UserAbstractSerializer(read_only=True)
-    is_feedbacked = serializers.SerializerMethodField(source='is_feedbacked')
+    is_feedbacked = serializers.SerializerMethodField(source="is_feedbacked")
 
     class Meta:
         """Meta definition for ChallengeSuggestionSerializer."""
@@ -24,8 +24,8 @@ class ChallengeSuggestionSerializer(serializers.ModelSerializer):
             "challenge",
             "suggester",
             "content",
-            "is_feedbacked"
-            "feedback_cnt",
+            "is_feedbacked",
+            "feedback_count",
             "created_at",
             "updated_at",
         ]
@@ -33,13 +33,14 @@ class ChallengeSuggestionSerializer(serializers.ModelSerializer):
             "id",
             "challenge",
             "suggester",
-            "feedback_cnt",
+            "feedback_count",
             "created_at",
             "updated_at",
         ]
+
     @property
     def current_user(self):
-        return self.context.get('request').user
+        return self.context.get("request").user
 
     @property
     def is_anonymous_user(self):
