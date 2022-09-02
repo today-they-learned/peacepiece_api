@@ -5,7 +5,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from article.models import Article
 from article.permissions import IsArticleEditableOrDestroyable
-from article.serializers import ArticleListSerializer, ArticleSerializer, ArticleUpdateSerialzier
+from article.serializers import ArticleListSerializer, ArticleSerializer, ArticleUpdateSerializer
 
 
 class ArticleViewSet(ModelViewSet):
@@ -35,7 +35,7 @@ class ArticleViewSet(ModelViewSet):
         if self.action == "create":
             return ArticleSerializer
         if self.action == "update" or self.action == "partial_update":
-            return ArticleUpdateSerialzier
+            return ArticleUpdateSerializer
 
         return ArticleListSerializer
 
@@ -63,7 +63,8 @@ class ArticleViewSet(ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         """
-        글의 상세 내용을 반환합니다.
+        글을 부분적으로 수정합니다.
+        - 글의 게시자인 경우에만 가능합니다.
         """
         return super().partial_update(request, *args, **kwargs)
 

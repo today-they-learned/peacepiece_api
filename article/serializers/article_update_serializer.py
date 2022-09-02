@@ -6,7 +6,7 @@ from file_manager.models import ArticleImage, Image
 from .article_serializer import ArticleSerializer
 
 
-class ArticleUpdateSerialzier(ArticleSerializer):
+class ArticleUpdateSerializer(ArticleSerializer):
     image_ids = serializers.PrimaryKeyRelatedField(
         many=True,
         queryset=Image.objects.all(),
@@ -14,8 +14,8 @@ class ArticleUpdateSerialzier(ArticleSerializer):
         required=False,
     )
 
-    def clear_existing_images(self, instance, remaing_ids):
-        for article_image in instance.article_images.exclude(image_id__in=remaing_ids):
+    def clear_existing_images(self, instance, remaining_ids):
+        for article_image in instance.article_images.exclude(image_id__in=remaining_ids):
             article_image.delete()
 
     @transaction.atomic
