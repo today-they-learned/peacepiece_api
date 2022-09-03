@@ -1,14 +1,15 @@
-from rest_framework import filters
+from django.db.models import Case, When
+from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
 
 from article.models import Article
 from article.permissions import IsArticleEditableOrDestroyable
 from article.serializers import ArticleListSerializer, ArticleSerializer, ArticleUpdateSerializer
+from config.viewsets import BaseModelViewSet
 
 
-class ArticleViewSet(ModelViewSet):
+class ArticleViewSet(BaseModelViewSet):
     permission_classes = [
         IsAuthenticatedOrReadOnly,
         IsArticleEditableOrDestroyable,
@@ -27,8 +28,7 @@ class ArticleViewSet(ModelViewSet):
         )
     )
     filterset_fields = ["content", "writer"]
-    filter_backends = [filters.OrderingFilter]
-    ordering_fields = ["created_at", "updated_at"]
+    ordering_fields = []
     ordering = ["-updated_at"]
 
     def get_serializer_class(self):
@@ -79,7 +79,13 @@ class ArticleViewSet(ModelViewSet):
         """
         글의 목록을 반환합니다.
         """
-        queryset = self.filter_queryset(self.get_queryset())
+        queryset = self.get_queryset()
+
+        if self.is_authenticated_user and "challenge" in request.query_params:
+            self.ordering = ["-my_article", "-updated_at"]
+            queryset = queryset.annotate(my_article=Case(When(writer_id=request.user.id, then=1), default=0))
+
+        queryset = self.filter_queryset(queryset)
 
         page = self.paginate_queryset(queryset)
         if page is not None:
