@@ -2,7 +2,9 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 
 from article.models import Article, ArticleComment
-from article.serializers import ArticleSerializer, CommentSerializer
+from user.serializers import UserAbstractSerializer
+
+from .article_serializer import ArticleSerializer
 
 
 class ArticleCommentSerializer(WritableNestedModelSerializer):
@@ -16,7 +18,7 @@ class ArticleCommentSerializer(WritableNestedModelSerializer):
     article = ArticleSerializer(
         read_only=True,
     )
-    comment = CommentSerializer(read_only=True)
+    writer = UserAbstractSerializer(read_only=True)
 
     class Meta:
         """Meta definition for ArticleCommentSerializer."""
@@ -26,7 +28,8 @@ class ArticleCommentSerializer(WritableNestedModelSerializer):
             "id",
             "article_id",
             "article",
-            "comment",
+            "writer",
+            "content",
             "created_at",
             "updated_at",
         ]
@@ -35,7 +38,13 @@ class ArticleCommentSerializer(WritableNestedModelSerializer):
             "id",
             "article_id",
             "article",
-            "comment",
+            "writer",
             "created_at",
             "updated_at",
         ]
+
+        extra_kwargs = {
+            "content": {
+                "required": True,
+            }
+        }
