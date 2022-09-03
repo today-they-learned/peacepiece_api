@@ -13,7 +13,6 @@ class ChallengeAbstractSerializer(serializers.ModelSerializer):
         read_only=True,
         many=True,
     )
-
     thumbnail = ImageSerializer(read_only=True)
 
     class Meta:
