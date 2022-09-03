@@ -7,21 +7,21 @@ class ArticleUserFeedback(BaseModel):
     """Model definition for ArticleUserFeedback"""
 
     article = models.ForeignKey(
-        'article.Article',
+        "article.Article",
         on_delete=models.CASCADE,
-        related_name='article_user_feedbacks',
+        related_name="article_user_feedbacks",
     )
 
     feedback = models.ForeignKey(
-        'feedback.Feedback',
+        "feedback.Feedback",
         on_delete=models.CASCADE,
-        related_name='user_feedbacks',
+        related_name="article_user_feedbacks",
     )
 
     user = models.ForeignKey(
-        'user.User',
+        "user.User",
         on_delete=models.CASCADE,
-        related_name='user_feedbacks',
+        related_name="article_user_feedbacks",
     )
 
     class Meta:
