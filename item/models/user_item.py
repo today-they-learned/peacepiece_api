@@ -30,4 +30,9 @@ class UserItem(BaseModel):
         db_table = "user_items"
         verbose_name = "UserItem"
         verbose_name_plural = "UserItems"
-
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "item"],
+                name="unique_item_by_user",
+            )
+        ]
