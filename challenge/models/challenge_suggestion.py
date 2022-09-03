@@ -2,6 +2,8 @@ from django.db import models
 
 from config.models import BaseModel
 
+from .challenge_suggestion_feedback import ChallengeSuggestionFeedback
+
 
 class ChallengeSuggestion(BaseModel):
     """Model definition for ChallengeSuggestion"""
@@ -26,7 +28,7 @@ class ChallengeSuggestion(BaseModel):
         blank=True,
         max_length=300,
     )
-    feedback_cnt = models.PositiveIntegerField(
+    feedback_count = models.PositiveIntegerField(
         verbose_name="피드백 개수",
         default=0,
     )
@@ -35,3 +37,7 @@ class ChallengeSuggestion(BaseModel):
         db_table = "challenge_suggestions"
         verbose_name = "ChallengeSuggestion"
         verbose_name_plural = "ChallengeSuggestion"
+
+    def reset_feedback_count(self):
+        self.feedback_count = ChallengeSuggestionFeedback.objects.filter(suggestion=self).count()
+        self.save()

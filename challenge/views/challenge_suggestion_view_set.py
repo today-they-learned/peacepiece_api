@@ -1,18 +1,13 @@
 from challenge.models import ChallengeSuggestion
-from challenge.serializers import ChallengeSuggestionSerializer, ChallengeSuggestionUpdateSerializer
+from challenge.serializers import ChallengeSuggestionSerializer
 from config.viewsets import BaseModelViewSet
 
 
 class ChallengeSuggestionViewSet(BaseModelViewSet):
     queryset = ChallengeSuggestion.objects.all()
+    serializer_class = ChallengeSuggestionSerializer
     search_fields = ["challenge", "suggester"]
     ordering_fields = ["feedback_cnt", "created_at", "updated_at"]
-
-    def get_serializer_class(self):
-        if self.action == "update" or self.action == "partial_update":
-            return ChallengeSuggestionUpdateSerializer
-
-        return ChallengeSuggestionSerializer
 
     def perform_create(self, serializer):
         return serializer.save(suggester=self.request.user)
