@@ -11,7 +11,19 @@ class ArticleCommentAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         linkify("article"),
-        linkify("comment"),
+        linkify("writer"),
+        "content",
+        "created_at",
+        "updated_at",
     )
 
-    ordering = ("article",)
+    readonly_fields = (
+        "id",
+        "created_at",
+        "updated_at",
+    )
+
+    ordering = (
+        "article",
+        "writer",
+    )
