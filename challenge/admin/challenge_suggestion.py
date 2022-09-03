@@ -1,7 +1,12 @@
 from django.contrib import admin
 
-from challenge.models import ChallengeSuggestion
+from challenge.models import ChallengeSuggestion, ChallengeSuggestionFeedback
 from config.admin import linkify
+
+
+def reset_counters(self, request, queryset):
+    for challenge_suggestion in queryset:
+        challenge_suggestion.reset_feedback_count()
 
 
 @admin.register(ChallengeSuggestion)
@@ -13,7 +18,7 @@ class ChallengeSuggestionAdmin(admin.ModelAdmin):
         linkify("challenge"),
         linkify("suggester"),
         "content",
-        "feedback_cnt",
+        "feedback_count",
     )
     readonly_fields = ("challenge", "suggester")
-    ordering = ("suggester", "feedback_cnt")
+    ordering = ("suggester", "feedback_count")
