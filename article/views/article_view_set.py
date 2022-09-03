@@ -27,7 +27,7 @@ class ArticleViewSet(BaseModelViewSet):
             "challenge__images",
         )
     )
-    filterset_fields = ["content", "writer"]
+    filterset_fields = ["content", "writer", "challenge"]
     ordering_fields = []
     ordering = ["-updated_at"]
 
