@@ -24,6 +24,7 @@ class ArticleSerializer(WritableNestedModelSerializer):
         source="challenge",
         queryset=Challenge.objects.all(),
         write_only=True,
+        required=False,
     )
 
     challenge = ChallengeAbstractSerializer(
