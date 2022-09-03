@@ -9,6 +9,10 @@ class ItemSerializer(serializers.ModelSerializer):
 
     thumbnail = ImageSerializer(read_only=True)
 
+    is_gettable = serializers.BooleanField(
+        default = False,
+    )
+
     class Meta:
         """Meta definition for ItemSerializer."""
 
@@ -18,10 +22,12 @@ class ItemSerializer(serializers.ModelSerializer):
            "id",
            "point",
            "thumbnail",
+           "is_gettable",
         ]
 
         read_only_fields = [
             "id",
             "point",
             "thumbnail",
+            "is_gettable",
         ]
