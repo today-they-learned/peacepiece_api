@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
-from item.serializers import ItemSerializer
 from item.models import ItemCondition
+
+from .item_serializer import ItemSerializer
 
 
 class ItemConditionAbstractSerializer(serializers.ModelSerializer):
@@ -17,9 +18,9 @@ class ItemConditionAbstractSerializer(serializers.ModelSerializer):
         model = ItemCondition
 
         fields = [
-           "id",
-           "item",
-           "max_count",
+            "id",
+            "item",
+            "max_count",
         ]
 
         read_only_fields = [

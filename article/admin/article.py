@@ -17,7 +17,7 @@ class ArticleAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = (
-        "writer",
+        # "writer",
         "content",
     )
 

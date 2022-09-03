@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from feedback.models import ArticleFeedback
 from config.admin import linkify
+from feedback.models import ArticleFeedback
 
 
 @admin.register(ArticleFeedback)

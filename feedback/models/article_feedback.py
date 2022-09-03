@@ -7,15 +7,15 @@ class ArticleFeedback(BaseModel):
     """Model definition for ArticleFeedback"""
 
     article = models.ForeignKey(
-        'article.Article',
+        "article.Article",
         on_delete=models.CASCADE,
-        related_name='article_feedbacks',
+        related_name="article_feedbacks",
     )
 
     feedback = models.ForeignKey(
-        'feedback.Feedback',
+        "feedback.Feedback",
         on_delete=models.CASCADE,
-        related_name='article_feedbacks',
+        related_name="article_feedbacks",
     )
 
     count = models.PositiveIntegerField(

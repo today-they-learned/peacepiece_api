@@ -14,14 +14,14 @@ class ItemCondition(BaseModel):
 
     pre_item_condition = models.ForeignKey(
         "item.ItemCondition",
-        null = True,
-        blank = True,
+        null=True,
+        blank=True,
         related_name="conditions",
         on_delete=models.SET_NULL,
     )
 
     max_count = models.PositiveIntegerField(
-        default = 0,
+        default=0,
     )
 
     class Meta:

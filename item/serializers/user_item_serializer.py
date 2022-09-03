@@ -5,20 +5,19 @@ from item.serializers import ItemSerializer
 from user.serializers import UserSerializer
 
 
-
 class UserItemSerializer(serializers.ModelSerializer):
     """Serializer definition for UserItem Model."""
 
     item = ItemSerializer(
-        read_only = True,
+        read_only=True,
     )
 
     user = UserSerializer(
-        read_only = True,
+        read_only=True,
     )
 
     class Meta:
-        """Meta definition for ItemConditionSerializer."""
+        """Meta definition for UserItemSerializer."""
 
         model = UserItem
 

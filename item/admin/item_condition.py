@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from item.models import ItemCondition
 from config.admin import linkify
+from item.models import ItemCondition
 
 
 @admin.register(ItemCondition)
@@ -10,9 +10,9 @@ class ItemConditionAdmin(admin.ModelAdmin):
 
     list_display = (
         "id",
-       linkify("item"),
-       linkify("pre_item_condition"),
-       "max_count",
+        linkify("item"),
+        linkify("pre_item_condition"),
+        "max_count",
     )
 
     ordering = ("item",)

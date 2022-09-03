@@ -1,3 +1,4 @@
+import logging
 from http import HTTPStatus
 from typing import Any
 
@@ -7,6 +8,8 @@ from django.forms import ValidationError
 from django.http import Http404
 from rest_framework import exceptions
 from rest_framework.views import Response, set_rollback
+
+logger = logging.getLogger("django.db.backends")
 
 
 def exception_handler(exc, context):
@@ -76,6 +79,8 @@ def exception_handler(exc, context):
             data = {"unexpected_error": data}
 
         return Response(data, status=422, headers=headers)
+
+    logger.debug("EXCEPTION LOG\n", exc, context)
 
     return None
 

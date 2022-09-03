@@ -15,7 +15,7 @@ class UserItem(BaseModel):
     )
 
     item = models.ForeignKey(
-        'item.Item',
+        "item.Item",
         on_delete=models.SET_NULL,
         null=True,
         related_name="items",
@@ -23,7 +23,7 @@ class UserItem(BaseModel):
     )
 
     count = models.PositiveIntegerField(
-        default = 0,
+        default=0,
     )
 
     class Meta:

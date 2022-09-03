@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from item.models import UserItem
 from config.admin import linkify
+from item.models import UserItem
 
 
 @admin.register(UserItem)

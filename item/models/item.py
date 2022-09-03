@@ -7,19 +7,19 @@ class Item(BaseModel):
     """Model definition for Item"""
 
     CATEGORY_CHOICES = (
-    ("map", "map"),
-    ("animal","animal"),
-    ("item","item"),
-)
+        ("map", "map"),
+        ("animal", "animal"),
+        ("item", "item"),
+    )
 
     name = models.CharField(
-        max_length = 30,
+        max_length=30,
     )
 
     category = models.CharField(
-       choices=CATEGORY_CHOICES,
-       max_length = 30,
-       default = "map",
+        choices=CATEGORY_CHOICES,
+        max_length=30,
+        default="map",
     )
 
     thumbnail = models.ForeignKey(
@@ -29,7 +29,7 @@ class Item(BaseModel):
     )
 
     point = models.PositiveIntegerField(
-        default = 0,
+        default=0,
     )
 
     class Meta:
