@@ -11,6 +11,7 @@ class ItemAdmin(admin.ModelAdmin):
         "id",
         "name",
         "point",
+        "category",
     )
 
     ordering = ("point",)
