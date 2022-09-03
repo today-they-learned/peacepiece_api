@@ -38,14 +38,6 @@ class ChallengeSuggestion(BaseModel):
         verbose_name = "ChallengeSuggestion"
         verbose_name_plural = "ChallengeSuggestion"
 
-    def increment_feedback_count(self):
-        self.feedback_count += 1
-        self.save()
-
-    def decrement_feedback_count(self):
-        self.feedback_count -= 1
-        self.save()
-
     def reset_feedback_count(self):
         self.feedback_count = ChallengeSuggestionFeedback.objects.filter(suggestion=self).count()
         self.save()
