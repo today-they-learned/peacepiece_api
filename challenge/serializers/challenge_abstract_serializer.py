@@ -1,7 +1,7 @@
 from drf_yasg.utils import swagger_serializer_method
 from rest_framework import serializers
 
-from article.models import article
+from article.models import Article
 from challenge.models import Challenge
 from file_manager.serializers import ImageSerializer
 
@@ -58,4 +58,4 @@ class ChallengeAbstractSerializer(serializers.ModelSerializer):
     def get_is_proved(self, challenge) -> bool:
         if self.is_anonymous_user:
             return False
-        return article.filter(writer=self.current_user, challenge=self).exists()
+        return Article.objects.filter(writer=self.current_user, challenge=challenge).exists()
