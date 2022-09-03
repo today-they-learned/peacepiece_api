@@ -1,30 +1,19 @@
-from rest_framework import serializers
-
-from challenge.models import Challenge
 from file_manager.serializers import ImageSerializer
 
-from .category_serializer import CategorySerializer
+from .challenge_abstract_serializer import ChallengeAbstractSerializer
 
 
-class ChallengeSerializer(serializers.ModelSerializer):
+class ChallengeSerializer(ChallengeAbstractSerializer):
     """Serializer definition for Challenge Model."""
-
-    categories = CategorySerializer(
-        read_only=True,
-        many=True,
-    )
-
-    thumbnail = ImageSerializer(read_only=True)
 
     images = ImageSerializer(
         many=True,
         read_only=True,
     )
 
-    class Meta:
+    class Meta(ChallengeAbstractSerializer.Meta):
         """Meta definition for ChallengeSerializer."""
 
-        model = Challenge
         fields = [
             "id",
             "title",
@@ -34,17 +23,6 @@ class ChallengeSerializer(serializers.ModelSerializer):
             "point",
             "thumbnail",
             "images",
-            "start_at",
-            "end_at",
-        ]
-
-        read_only_fields = [
-            "id",
-            "title",
-            "description",
-            "categories",
-            "prover_cnt",
-            "point",
             "start_at",
             "end_at",
         ]
