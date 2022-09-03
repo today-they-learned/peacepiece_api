@@ -52,6 +52,7 @@ PACKAGE_APPS = [
     "dj_rest_auth.registration",
     "corsheaders",
     "django_filters",
+    "django_extensions",
 ]
 
 PROJECT_APPS = [
@@ -61,6 +62,7 @@ PROJECT_APPS = [
     "challenge",
     "article",
     "file_manager",
+    "item",
     "feedback",
 ]
 

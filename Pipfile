@@ -26,6 +26,7 @@ pylint = "==2.14.5"
 pylint-django = "==2.5.3"
 pylint-plugin-utils = "==0.7"
 whitenoise = "==6.2.0"
+django-extensions = "*"
 
 [dev-packages]
 
