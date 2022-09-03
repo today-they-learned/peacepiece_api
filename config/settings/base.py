@@ -61,6 +61,7 @@ PROJECT_APPS = [
     "challenge",
     "article",
     "file_manager",
+    "feedback",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + PACKAGE_APPS
