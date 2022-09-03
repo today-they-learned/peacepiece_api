@@ -9,7 +9,7 @@ class ArticleUserFeedback(BaseModel):
     article = models.ForeignKey(
         'article.Article',
         on_delete=models.CASCADE,
-        related_name='user_feedbacks',
+        related_name='article_user_feedbacks',
     )
 
     feedback = models.ForeignKey(
