@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 
 from config.models import BaseModel
 
@@ -31,3 +31,13 @@ class ChallengeSuggestionFeedback(BaseModel):
                 name="unique_suggestion_by_user",
             )
         ]
+
+    @transaction.atomic
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.suggestion.reset_feedback_count()
+        super().save(force_insert, force_update, using, update_fields)
+
+    @transaction.atomic
+    def delete(self, using=None, keep_parents=False):
+        self.suggestion.reset_feedback_count()
+        super().delete(using, keep_parents)

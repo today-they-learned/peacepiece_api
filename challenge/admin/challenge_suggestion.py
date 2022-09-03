@@ -6,10 +6,7 @@ from config.admin import linkify
 
 def reset_counters(self, request, queryset):
     for challenge_suggestion in queryset:
-        challenge_suggestion.feedback_count = ChallengeSuggestionFeedback.objects.filter(
-            suggestion=challenge_suggestion
-        ).count()
-        challenge_suggestion.save()
+        challenge_suggestion.reset_feedback_count()
 
 
 @admin.register(ChallengeSuggestion)
