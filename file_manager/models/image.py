@@ -10,4 +10,4 @@ class Image(BaseModel):
         verbose_name_plural = "Images"
 
     file = models.ImageField(upload_to="images/", blank=True, null=True)
-    uploader = models.ForeignKey("user.User", related_name="uploader", on_delete=models.SET_NULL, null=True)
+    uploader = models.ForeignKey("user.User", related_name="uploader", on_delete=models.SET_NULL, null=True, blank=True)
