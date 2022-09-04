@@ -60,6 +60,12 @@ class User(AbstractBaseUser, BaseModel, PermissionsMixin):
         upload_to=user_avatar_upload_path,
     )
 
+    items = models.ManyToManyField(
+        "item.Item",
+        related_name="users",
+        through="item.UserItem",
+    )
+
     objects = UserManager()
 
     class Meta:
