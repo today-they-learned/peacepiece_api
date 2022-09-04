@@ -11,14 +11,14 @@ class UserItem(BaseModel):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="items",
+        related_name="user_items",
     )
 
     item = models.ForeignKey(
         "item.Item",
         on_delete=models.SET_NULL,
         null=True,
-        related_name="items",
+        related_name="user_items",
         blank=True,
     )
 
