@@ -1,12 +1,13 @@
 from rest_framework import serializers
 
+from config.serializers import BaseModelSerializer
 from item.models import ItemCondition
 
 from .item_condition_abstract_serializer import ItemConditionAbstractSerializer
 from .item_serializer import ItemSerializer
 
 
-class ItemConditionSerializer(serializers.ModelSerializer):
+class ItemConditionSerializer(BaseModelSerializer):
     """Serializer definition for ItemCondition Model."""
 
     item = ItemSerializer(

@@ -1,10 +1,11 @@
 from rest_framework import serializers
 
+from config.serializers import BaseModelSerializer
 from file_manager.serializers import ImageSerializer
 from item.models import Item
 
 
-class BuyableItemListSerializer(serializers.ModelSerializer):
+class BuyableItemListSerializer(BaseModelSerializer):
     """Serializer definition for Item Model."""
 
     thumbnail = ImageSerializer(read_only=True)

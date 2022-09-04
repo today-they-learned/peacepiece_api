@@ -1,9 +1,10 @@
 from rest_framework import serializers
 
+from config.serializers import BaseModelSerializer
 from file_manager.models import Image
 
 
-class ImageSerializer(serializers.ModelSerializer):
+class ImageSerializer(BaseModelSerializer):
     # NOTE: 필요한 경우가 있는지 확인하고 추가하기
     # uploader = UserAbstractSerializer(read_only=True)
     file = serializers.ImageField(

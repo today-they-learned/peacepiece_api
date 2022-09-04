@@ -1,11 +1,12 @@
 from rest_framework import serializers
 
 from challenge.models import Category, ChallengeReminder
+from config.serializers import BaseModelSerializer
 
 from .category_serializer import CategorySerializer
 
 
-class ChallengeReminderSerializer(serializers.ModelSerializer):
+class ChallengeReminderSerializer(BaseModelSerializer):
     """Serializer definition for ChallengeReminder Model."""
 
     category = CategorySerializer(

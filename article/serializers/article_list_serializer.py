@@ -2,11 +2,12 @@ from rest_framework import serializers
 
 from article.models import Article
 from challenge.serializers import ChallengeAbstractSerializer
+from config.serializers import BaseModelSerializer
 from file_manager.serializers import ImageSerializer
 from user.serializers import UserAbstractSerializer
 
 
-class ArticleListSerializer(serializers.ModelSerializer):
+class ArticleListSerializer(BaseModelSerializer):
     """Serializer definition for Article Model."""
 
     writer = UserAbstractSerializer(

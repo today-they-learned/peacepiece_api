@@ -1,11 +1,10 @@
-from rest_framework import serializers
-
+from config.serializers import BaseModelSerializer
 from item.models import UserItem
 from item.serializers import ItemSerializer
 from user.serializers import UserSerializer
 
 
-class UserItemSerializer(serializers.ModelSerializer):
+class UserItemSerializer(BaseModelSerializer):
     """Serializer definition for UserItem Model."""
 
     item = ItemSerializer(

@@ -1,9 +1,10 @@
 from rest_framework import serializers
 
 from challenge.models import Category
+from config.serializers import BaseModelSerializer
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(BaseModelSerializer):
     """Serializer definition for Category Model."""
 
     class Meta:
