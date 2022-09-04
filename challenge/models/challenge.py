@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 
 from config.models import BaseModel
 
@@ -49,3 +50,7 @@ class Challenge(BaseModel):
 
     def __str__(self) -> str:
         return f"[{self.id}] {self.title}"
+
+    @property
+    def is_ended(self):
+        return self.end_at and self.end_at <= now()
