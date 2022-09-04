@@ -42,4 +42,4 @@ class ChallengeSuggestionSerializer(BaseModelSerializer):
     def get_is_feedbacked(self, challenge_suggestion) -> bool:
         if self.is_anonymous_user:
             return False
-        return challenge_suggestion.challenge_suggestion_feedback.filter(user=self.current_user).exists()
+        return challenge_suggestion.challenge_suggestion_feedbacks.filter(user=self.current_user).exists()
