@@ -14,23 +14,16 @@ class Item(BaseModel):
 
     name = models.CharField(
         max_length=30,
+        verbose_name="아이템명",
     )
 
-    category = models.CharField(
-        choices=CATEGORY_CHOICES,
-        max_length=30,
-        default="map",
-    )
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=30, default="map", verbose_name="아이템 종류")
 
     thumbnail = models.ForeignKey(
-        "file_manager.Image",
-        related_name="items",
-        on_delete=models.CASCADE,
+        "file_manager.Image", related_name="items", on_delete=models.CASCADE, verbose_name="아이템 이미지"
     )
 
-    point = models.PositiveIntegerField(
-        default=0,
-    )
+    point = models.PositiveIntegerField(default=0, verbose_name="아이템 가격")
 
     class Meta:
         db_table = "items"
