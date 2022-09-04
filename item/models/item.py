@@ -29,3 +29,6 @@ class Item(BaseModel):
         db_table = "items"
         verbose_name = "Item"
         verbose_name_plural = "Items"
+
+    def __str__(self) -> str:
+        return f"[{self.id}] {self.name}"
