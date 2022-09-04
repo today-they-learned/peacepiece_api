@@ -3,12 +3,13 @@ from rest_framework import serializers
 
 from article.models import Article
 from challenge.models import Challenge
+from config.serializers import BaseModelSerializer
 from file_manager.serializers import ImageSerializer
 
 from .category_serializer import CategorySerializer
 
 
-class ChallengeAbstractSerializer(serializers.ModelSerializer):
+class ChallengeAbstractSerializer(BaseModelSerializer):
     """AbstractSerializer definition for Challenge Model."""
 
     categories = CategorySerializer(
@@ -45,14 +46,6 @@ class ChallengeAbstractSerializer(serializers.ModelSerializer):
             "start_at",
             "end_at",
         ]
-
-    @property
-    def current_user(self):
-        return self.context.get("request").user
-
-    @property
-    def is_anonymous_user(self):
-        return self.current_user.is_anonymous
 
     @swagger_serializer_method(serializer_or_field=serializers.BooleanField)
     def get_is_proved(self, challenge) -> bool:
