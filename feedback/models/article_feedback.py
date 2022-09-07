@@ -32,3 +32,30 @@ class ArticleFeedback(BaseModel):
                 name="unique_feedback_article",
             )
         ]
+
+    @classmethod
+    def increment_feedback_count(cls, article, feedback):
+        article_feedback, _ = cls.objects.get_or_create(
+            article=article,
+            feedback=feedback,
+        )
+        article_feedback.count += 1
+
+        article_feedback.save()
+
+    @classmethod
+    def decrement_feedback_count(cls, article, feedback):
+        article_feedback, _ = cls.objects.get_or_create(
+            article=article,
+            feedback=feedback,
+        )
+        article_feedback.count -= 1
+
+        article_feedback.save()
+        article_feedback.reset_feedback(article_feedback, feedback)
+
+    @classmethod
+    def reset_feedback(cls, article_feedback, feedback):
+        if article_feedback.count == 0:
+            article_feedback.delete()
+            feedback.delete()
