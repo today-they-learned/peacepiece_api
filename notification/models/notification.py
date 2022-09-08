@@ -44,6 +44,10 @@ class Notification(BaseModel):
         null=True,
     )
 
+    is_viewed = models.BooleanField(
+        default=False,
+    )
+
     class Meta:
         db_table = "notifications"
         verbose_name = "Notification"
