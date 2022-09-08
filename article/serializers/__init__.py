@@ -1,3 +1,4 @@
+from .article_abstract_serializer import ArticleAbstractSerializer
 from .article_comment_serializer import ArticleCommentSerializer
 from .article_list_serializer import ArticleListSerializer
 from .article_serializer import ArticleSerializer
