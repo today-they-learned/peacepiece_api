@@ -4,7 +4,7 @@ from challenge.models import Challenge
 from challenge.serializers import ChallengeAbstractSerializer, ChallengeSerializer
 
 
-class ChallengeDailyViewSet(ListAPIView):
+class ChallengeDailyListAPIView(ListAPIView):
     queryset = Challenge.objects.daily()[:3]
     serializer_class = ChallengeSerializer
     filterset_fields = []
