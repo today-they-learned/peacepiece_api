@@ -1,5 +1,6 @@
 from django.db import models
 
+from article.models import Article
 from config.models import BaseModel
 
 
@@ -52,3 +53,7 @@ class Notification(BaseModel):
         db_table = "notifications"
         verbose_name = "Notification"
         verbose_name_plural = "Notifications"
+
+    @classmethod
+    def create_article_notification(cls, contributor, article, user, notice_category):
+        Notification(user=user, contributor=contributor, notice_category=notice_category, article=article).save()
