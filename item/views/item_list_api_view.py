@@ -7,7 +7,7 @@ from item.models import Item, ItemCondition, UserItem
 from item.serializers import BuyableItemListSerializer
 
 
-class ItemAPIView(ListAPIView):
+class ItemListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = BuyableItemListSerializer
     queryset = Item.objects.all()
