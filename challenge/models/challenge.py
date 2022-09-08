@@ -23,9 +23,9 @@ class Challenge(BaseModel):
 
     point = models.PositiveIntegerField(default=0)
 
-    start_at = models.DateTimeField()
+    start_at = models.DateField()
 
-    end_at = models.DateTimeField()
+    end_at = models.DateField()
 
     thumbnail = models.OneToOneField(
         "file_manager.Image",
@@ -53,4 +53,4 @@ class Challenge(BaseModel):
 
     @property
     def is_ended(self):
-        return self.end_at and self.end_at <= now()
+        return self.end_at and self.end_at <= now().date()
