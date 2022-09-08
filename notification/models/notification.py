@@ -1,13 +1,15 @@
 from django.db import models
 
+from config.models import BaseModel
 
-class Notification(models.Model):
+
+class Notification(BaseModel):
     """Model definition for Notification"""
 
     NOTICE_CATEGORY_CHOICES = (
-        (0, "챌린지 인증글 댓글 알림"),
-        (1, "피스글 댓글 알림"),
-        (2, "카테고리 챌린지 알림"),
+        ("challenge", "챌린지 인증글 댓글 알림"),
+        ("piece", "피스글 댓글 알림"),
+        ("category", "카테고리 챌린지 알림"),
     )
 
     user = models.ForeignKey(
@@ -40,14 +42,6 @@ class Notification(models.Model):
         "article.Article",
         on_delete=models.CASCADE,
         null=True,
-    )
-
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-    )
-
-    updated_at = models.DateTimeField(
-        auto_now=True,
     )
 
     class Meta:
