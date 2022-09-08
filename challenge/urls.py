@@ -3,16 +3,22 @@ from rest_framework.routers import DefaultRouter
 
 from challenge.views import (
     CategoryListAPIView,
+    ChallengeDailyViewSet,
+    ChallengeEndedViewSet,
     ChallengeReminderAPIView,
     ChallengeSuggestionFeedbackAPIView,
     ChallengeSuggestionViewSet,
     ChallengeViewSet,
+    ChallengeWeeklyViewSet,
 )
 
 app_name = "challenge"
 
 router = DefaultRouter()
 router.register("suggestions", ChallengeSuggestionViewSet, basename="ChallengeSuggestion")
+router.register("daily", ChallengeDailyViewSet, basename="ChallengeDaily")
+router.register("weekly", ChallengeWeeklyViewSet, basename="ChallengeWeekly")
+router.register("ended", ChallengeEndedViewSet, basename="ChallengeEnded")
 router.register("", ChallengeViewSet, basename="Challenge")
 
 urlpatterns = [
