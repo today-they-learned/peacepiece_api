@@ -1,22 +1,51 @@
 from django.db import models
 
-from user.models import User
+from config.models import BaseModel
 
 
-class Notification(models.Model):
+class Notification(BaseModel):
     """Model definition for Notification"""
 
+    NOTICE_CATEGORY_CHOICES = (
+        ("challenge", "챌린지 인증글 댓글 알림"),
+        ("piece", "피스글 댓글 알림"),
+        ("category", "카테고리 챌린지 알림"),
+    )
+
     user = models.ForeignKey(
-        User,
+        "user.User",
         on_delete=models.CASCADE,
         related_name="notifications",
     )
-    category = models.IntegerField()
-    created_at = models.DateTimeField(
-        auto_now_add=True,
+
+    contributor = models.ForeignKey(
+        "user.User",
+        on_delete=models.CASCADE,
+        null=True,
     )
-    updated_at = models.DateTimeField(
-        auto_now=True,
+
+    notice_category = models.CharField(choices=NOTICE_CATEGORY_CHOICES, max_length=30, verbose_name="알림 종류")
+
+    challenge = models.ForeignKey(
+        "challenge.Challenge",
+        on_delete=models.CASCADE,
+        null=True,
+    )
+
+    category = models.ForeignKey(
+        "challenge.Category",
+        on_delete=models.CASCADE,
+        null=True,
+    )
+
+    article = models.ForeignKey(
+        "article.Article",
+        on_delete=models.CASCADE,
+        null=True,
+    )
+
+    is_viewed = models.BooleanField(
+        default=False,
     )
 
     class Meta:
