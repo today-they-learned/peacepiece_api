@@ -24,7 +24,7 @@ class Notification(BaseModel):
         null=True,
     )
 
-    notice_category = models.IntegerField(choices=NOTICE_CATEGORY_CHOICES, default=0, verbose_name="알림 종류")
+    notice_category = models.CharField(choices=NOTICE_CATEGORY_CHOICES, max_length=30, verbose_name="알림 종류")
 
     challenge = models.ForeignKey(
         "challenge.Challenge",
