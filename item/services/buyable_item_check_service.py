@@ -28,7 +28,11 @@ class BuyableItemCheckService:
 
         items_by_id: dict = Item.objects.all().in_bulk()  # key: item.id, value: Item
 
-        item_conditions = ItemCondition.objects.order_by("item_id").select_related("pre_item_condition")
+        item_conditions = ItemCondition.objects.order_by("item_id").select_related(
+            "pre_item_condition",
+            "item__thumbnail",
+            "pre_item_condition__item__thumbnail",
+        )
         item_conditions = ItemConditionSerializer(item_conditions, many=True).data
         item_conditions_group_by_item_id = groupby(item_conditions, lambda item_condition: item_condition["item"]["id"])
 
