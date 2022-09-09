@@ -84,12 +84,15 @@ class BuyableItemCheckService:
 
     @property
     def current_user(self):
+        """현재 유저를 반환합니다."""
         return self.request.user
 
     def _get_user_items_dict(self, user):
+        """사용자가 가지고 있는 아이템 목록을 item_id를 key로 하여 반환합니다."""
         return dict([(i["item_id"], i) for i in user.user_items.values()])
 
     def _is_fulfill_pre_condition(self, pre_condition: dict, user_items_dict: dict):
+        """사전 조건을 성립하였는가를 반환합니다."""
         if pre_condition is None:
             # 사전 조건이 없는 경우, 충족한 것으로 간주한다.
             return True
@@ -105,6 +108,7 @@ class BuyableItemCheckService:
         return True
 
     def _is_fulfill_max_count_condition(self, item_condition: dict, user_items_dict: dict):
+        """구매 가능 최대 개수보다 적은 상황인가를 반환합니다."""
         item_id = item_condition.get("item", {}).get("id")
         max_count = item_condition.get("max_count", 0)
         user_owned_item = user_items_dict.get(item_id)
@@ -117,4 +121,5 @@ class BuyableItemCheckService:
         return True
 
     def _is_fulfill_point(self, item: Item, user_point):
+        """포인트가 아이템의 가격보다 많은가를 반환합니다."""
         return item.point <= user_point, max(item.point - user_point, 0)
