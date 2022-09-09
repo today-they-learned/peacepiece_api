@@ -8,6 +8,7 @@ class ChallengeSuggestionViewSet(BaseModelViewSet):
     serializer_class = ChallengeSuggestionSerializer
     search_fields = ["challenge", "suggester"]
     ordering_fields = ["feedback_cnt", "created_at", "updated_at"]
+    ordering = "-updated_at"
 
     def perform_create(self, serializer):
         return serializer.save(suggester=self.request.user)
