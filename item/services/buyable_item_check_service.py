@@ -34,7 +34,10 @@ class BuyableItemCheckService:
             "pre_item_condition__item__thumbnail",
         )
         item_conditions = ItemConditionSerializer(item_conditions, many=True).data
-        item_conditions_group_by_item_id = groupby(item_conditions, lambda item_condition: item_condition["item"]["id"])
+        item_conditions_group_by_item_id = groupby(
+            item_conditions,
+            lambda item_condition: item_condition["item"]["id"],
+        )
 
         buyable_check_results = {}
 
@@ -53,21 +56,25 @@ class BuyableItemCheckService:
                 is_fulfill_pre_condition = self._is_fulfill_pre_condition(pre_item_condition, user_items_dict)
                 is_fulfill_max_count_condition = self._is_fulfill_max_count_condition(item_condition, user_items_dict)
                 is_fulfill_point, lack_point = self._is_fulfill_point(items_by_id[item_id], point)
+
                 if is_fulfill_pre_condition:
                     if is_fulfill_max_count_condition:
                         if is_fulfill_point:
+                            # 모든 조건이 충족된 경우 구매 가능하다.
                             buyable_check_results[item_id]["buyable"] = True
                             buyable_check_results[item_id]["reason"] = UnBuyableReason.SUCCESS
                             break
                         else:
+                            # 사전 조건은 충족했으나, 포인트가 부족한 경우
                             if buyable_check_results[item_id]["reason"].value < UnBuyableReason.NO_MONEY.value:
                                 buyable_check_results[item_id]["reason"] = UnBuyableReason.NO_MONEY
                                 buyable_check_results[item_id]["lack_point"] = lack_point
-
                     else:
+                        # 조건은 충족했으나, 이미 구매한 경우
                         if buyable_check_results[item_id]["reason"].value < UnBuyableReason.MAX_COUNT.value:
                             buyable_check_results[item_id]["reason"] = UnBuyableReason.MAX_COUNT
                 else:
+                    # 사전 조건을 충족하지 못한 경우
                     if buyable_check_results[item_id]["reason"].value <= UnBuyableReason.UNCOMPLETE_PRE_CONDITION.value:
                         buyable_check_results[item_id]["reason"] = UnBuyableReason.UNCOMPLETE_PRE_CONDITION
                         if pre_item_condition["priority"] < buyable_check_results[item_id]["pre_condition"]["priority"]:
