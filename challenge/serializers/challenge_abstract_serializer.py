@@ -34,6 +34,7 @@ class ChallengeAbstractSerializer(BaseModelSerializer):
             "is_proved",
             "start_at",
             "end_at",
+            "is_ended",
         ]
         read_only_fields = [
             "id",
@@ -45,6 +46,7 @@ class ChallengeAbstractSerializer(BaseModelSerializer):
             "is_proved",
             "start_at",
             "end_at",
+            "is_ended",
         ]
 
     @swagger_serializer_method(serializer_or_field=serializers.BooleanField)

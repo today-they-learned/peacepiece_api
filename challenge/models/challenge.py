@@ -1,11 +1,36 @@
+from datetime import timedelta
+
 from django.db import models
+from django.db.models import Q
 from django.utils.timezone import now
 
-from config.models import BaseModel
+from config.models import BaseModel, ModelManager
+
+
+class ChallengeModelManager(ModelManager):
+    def ended(self):
+        return super().get_queryset().filter(end_at__lt=now().date())
+
+    def daily(self):
+        today = now().date()
+        return super().get_queryset().filter(end_at=today, start_at=today)
+
+    def weekly(self):
+        today = now().date()
+        return (
+            super()
+            .get_queryset()
+            .filter(
+                ~(Q(end_at=today, start_at=today))
+                & Q(start_at__lte=today, start_at__gte=today + timedelta(days=7), end_at__gte=today)
+            )
+        )
 
 
 class Challenge(BaseModel):
     """Model definition for Challenge"""
+
+    objects = ChallengeModelManager()
 
     title = models.CharField(
         max_length=50,
@@ -23,9 +48,9 @@ class Challenge(BaseModel):
 
     point = models.PositiveIntegerField(default=0)
 
-    start_at = models.DateTimeField()
+    start_at = models.DateField()
 
-    end_at = models.DateTimeField()
+    end_at = models.DateField()
 
     thumbnail = models.OneToOneField(
         "file_manager.Image",
@@ -53,4 +78,4 @@ class Challenge(BaseModel):
 
     @property
     def is_ended(self):
-        return self.end_at and self.end_at <= now()
+        return self.end_at and self.end_at <= now().date()
