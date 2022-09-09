@@ -75,9 +75,7 @@ class BuyableItemCheckService:
 
     @property
     def current_user(self):
-        # TODO: request의 user
-        # return self.request.user
-        return User.objects.get(pk=1)
+        return self.request.user
 
     def _get_user_items_dict(self, user):
         return dict([(i["item_id"], i) for i in user.user_items.values()])
