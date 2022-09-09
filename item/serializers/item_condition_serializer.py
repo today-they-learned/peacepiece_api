@@ -23,11 +23,18 @@ class ItemConditionSerializer(BaseModelSerializer):
 
         model = ItemCondition
 
-        fields = ["id", "item", "max_count", "pre_item_condition"]
+        fields = [
+            "id",
+            "item",
+            "max_count",
+            "priority",
+            "pre_item_condition",
+        ]
 
         read_only_fields = [
             "id",
             "item",
             "max_count",
+            "priority",
             "pre_item_condition",
         ]
