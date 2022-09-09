@@ -22,3 +22,9 @@ class ChallengeCategory(BaseModel):
         db_table = "challenge_categories"
         verbose_name = "ChallengeCategory"
         verbose_name_plural = "ChallengeCategories"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["category", "challenge"],
+                name="unique_category_by_challenge",
+            )
+        ]
