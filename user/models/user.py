@@ -66,6 +66,12 @@ class User(AbstractBaseUser, BaseModel, PermissionsMixin):
         through="item.UserItem",
     )
 
+    point = models.IntegerField(
+        default=0,
+        null=False,
+        verbose_name="소지 포인트",
+    )
+
     objects = UserManager()
 
     class Meta:
