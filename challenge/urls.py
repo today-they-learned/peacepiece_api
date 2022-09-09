@@ -50,6 +50,11 @@ urlpatterns = [
         CategoryListAPIView.as_view(),
         name="ChallengeCatgegories",
     ),
+    path(
+        "<int:challenge_id>/related_challenges/",
+        RelatedListAPIView.as_view(),
+        name="RelatedChallenges",
+    ),
 ]
 
 urlpatterns += router.urls
