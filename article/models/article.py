@@ -49,6 +49,9 @@ class Article(BaseModel):
         ]
 
     def validate_challenge(self):
+        if self.challenge is None:
+            return
+
         if not isinstance(self.challenge, Challenge):
             raise ValidationError({"challenge": "없는 챌린지입니다."})
 
