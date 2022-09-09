@@ -1,10 +1,12 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
-from article.models import ArticleComment
+from article.models import Article, ArticleComment
 from article.serializers import ArticleCommentSerializer
 from config.viewsets import BaseModelViewSet
+from notification.models import Notification
 
 
 class ArticleCommentViewSet(BaseModelViewSet):
@@ -31,6 +33,8 @@ class ArticleCommentViewSet(BaseModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer, article_id)
         headers = self.get_success_headers(serializer.data)
+        article = get_object_or_404(Article, id=article_id)
+        Notification.create_article_notification(self.request.user, article, article.writer, "challenge")
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def retrieve(self, request, *args, **kwargs):
