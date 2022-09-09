@@ -49,7 +49,6 @@ class BuyableItemCheckService:
                 is_fulfill_pre_condition = self._is_fulfill_pre_condition(pre_item_condition, user_items_dict)
                 is_fulfill_max_count_condition = self._is_fulfill_max_count_condition(item_condition, user_items_dict)
                 is_fulfill_point, lack_point = self._is_fulfill_point(items_by_id[item_id], point)
-                print(item_id, is_fulfill_pre_condition, is_fulfill_max_count_condition, is_fulfill_point)
                 if is_fulfill_pre_condition:
                     if is_fulfill_max_count_condition:
                         if is_fulfill_point:
@@ -69,7 +68,6 @@ class BuyableItemCheckService:
                         buyable_check_results[item_id]["reason"] = UnBuyableReason.UNCOMPLETE_PRE_CONDITION
                         if pre_item_condition["priority"] < buyable_check_results[item_id]["pre_condition"]["priority"]:
                             buyable_check_results[item_id]["pre_condition"] = pre_item_condition
-                print("%%", item_id, buyable_check_results)
 
         return buyable_check_results
 
