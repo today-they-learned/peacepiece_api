@@ -22,11 +22,13 @@ class ArticleViewSet(BaseModelViewSet):
         )
         .prefetch_related(
             "images",
+            "article_comments",
             "challenge__categories",
             "challenge__thumbnail",
             "challenge__images",
         )
     )
+    search_fields = ["content"]
     filterset_fields = ["content", "writer", "challenge"]
     ordering_fields = []
     ordering = ["-updated_at"]
