@@ -3,7 +3,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from item.models import Item, ItemCondition
+from item.models import Item
 from item.serializers import ItemListSerializer
 from item.services import BuyableItemCheckService
 
@@ -12,7 +12,7 @@ class ItemListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ItemListSerializer
     queryset = Item.objects.all()
-    # TODO: CreateAPIView
+
     @property
     def current_user(self):
         return self.request.user
