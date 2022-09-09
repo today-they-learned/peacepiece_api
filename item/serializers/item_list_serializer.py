@@ -5,11 +5,11 @@ from file_manager.serializers import ImageSerializer
 from item.models import Item
 
 
-class BuyableItemListSerializer(BaseModelSerializer):
+class ItemListSerializer(BaseModelSerializer):
     """Serializer definition for Item Model."""
 
     thumbnail = ImageSerializer(read_only=True)
-    is_buyable = serializers.SerializerMethodField()
+    buyable_context = serializers.SerializerMethodField()
 
     class Meta:
         """Meta definition for ItemSerializer."""
@@ -20,18 +20,16 @@ class BuyableItemListSerializer(BaseModelSerializer):
             "id",
             "point",
             "thumbnail",
-            "is_buyable",
+            "buyable_context",
         ]
 
         read_only_fields = [
             "id",
             "point",
             "thumbnail",
-            "is_buyable",
+            "buyable_context",
         ]
 
-    def get_is_buyable(self, obj):
-        if obj.id in self.context.get("buyable_item_ids"):
-            return True
-
-        return False
+    def get_buyable_context(self, obj):
+        buyable_item_check_results: dict = self.context.get("buyable_item_check_results")
+        return buyable_item_check_results.get(obj.id)

@@ -21,11 +21,13 @@ class ItemConditionAbstractSerializer(BaseModelSerializer):
         fields = [
             "id",
             "item",
+            "priority",
             "max_count",
         ]
 
         read_only_fields = [
             "id",
             "item",
+            "priority",
             "max_count",
         ]
