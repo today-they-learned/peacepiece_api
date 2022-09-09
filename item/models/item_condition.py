@@ -24,6 +24,12 @@ class ItemCondition(BaseModel):
         default=0,
     )
 
+    priority = models.IntegerField(
+        default=0,
+        null=False,
+        verbose_name="우선순위(낮을 수록 먼저 적용되어야 함.)",
+    )
+
     class Meta:
         db_table = "item_conditions"
         verbose_name = "ItemCondition"
