@@ -3,13 +3,14 @@ from rest_framework.routers import DefaultRouter
 
 from challenge.views import (
     CategoryListAPIView,
-    ChallengeDailyListAPIView,
-    ChallengeEndedListAPIView,
     ChallengeReminderAPIView,
     ChallengeSuggestionFeedbackAPIView,
     ChallengeSuggestionViewSet,
     ChallengeViewSet,
-    ChallengeWeeklyListAPIView,
+    DailyListAPIView,
+    EndedListAPIView,
+    RelatedListAPIView,
+    WeeklyListAPIView,
 )
 
 app_name = "challenge"
@@ -26,17 +27,17 @@ urlpatterns = [
     ),
     path(
         "daily/",
-        ChallengeDailyListAPIView.as_view(),
+        DailyListAPIView.as_view(),
         name="ChallengeDaily",
     ),
     path(
         "weekly/",
-        ChallengeWeeklyListAPIView.as_view(),
+        WeeklyListAPIView.as_view(),
         name="ChallengeWeekly",
     ),
     path(
         "ended/",
-        ChallengeEndedListAPIView.as_view(),
+        EndedListAPIView.as_view(),
         name="ChallengeEnded",
     ),
     path(
@@ -48,6 +49,11 @@ urlpatterns = [
         "categories/",
         CategoryListAPIView.as_view(),
         name="ChallengeCatgegories",
+    ),
+    path(
+        "<int:challenge_id>/related_challenges/",
+        RelatedListAPIView.as_view(),
+        name="RelatedChallenges",
     ),
 ]
 

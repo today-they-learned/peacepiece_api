@@ -26,6 +26,10 @@ class ChallengeModelManager(ModelManager):
             )
         )
 
+    def is_progressing(self):
+        today = now().date()
+        return super().get_queryset().filter(start_at__lte=today, end_at__gte=today)
+
 
 class Challenge(BaseModel):
     """Model definition for Challenge"""
