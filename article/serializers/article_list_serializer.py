@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from article.models import Article
+from article.serializers.article_comment_serializer import ArticleCommentSerializer
 from challenge.serializers import ChallengeAbstractSerializer
 from config.serializers import BaseModelSerializer
 from file_manager.serializers import ImageSerializer
@@ -19,6 +20,8 @@ class ArticleListSerializer(BaseModelSerializer):
         read_only=True,
     )
 
+    article_comments = ArticleCommentSerializer(many=True, read_only=True)
+
     challenge = ChallengeAbstractSerializer(read_only=True)
 
     class Meta:
@@ -32,6 +35,7 @@ class ArticleListSerializer(BaseModelSerializer):
             "content",
             "images",
             "challenge",
+            "article_comments",
             "created_at",
             "updated_at",
         ]
@@ -40,6 +44,7 @@ class ArticleListSerializer(BaseModelSerializer):
             "id",
             "writer",
             "content",
+            "article_comments",
             "created_at",
             "updated_at",
         ]
