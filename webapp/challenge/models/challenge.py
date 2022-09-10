@@ -22,7 +22,7 @@ class ChallengeModelManager(ModelManager):
             .get_queryset()
             .filter(
                 ~(Q(end_at=today, start_at=today))
-                & Q(start_at__lte=today, start_at__gte=today + timedelta(days=7), end_at__gte=today)
+                & Q(start_at__lte=today, end_at__lte=today + timedelta(days=7), end_at__gte=today)
             )
         )
 
