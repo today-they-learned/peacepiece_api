@@ -1,7 +1,8 @@
 from datetime import timedelta
 
 from config.models import BaseModel, ModelManager
-from django.db import models
+from django.core.exceptions import ValidationError
+from django.db import models, transaction
 from django.db.models import Q
 from django.utils.timezone import now
 
@@ -82,3 +83,23 @@ class Challenge(BaseModel):
     @property
     def is_ended(self):
         return self.end_at and self.end_at < now().date()
+
+    @property
+    def is_not_start(self):
+        return self.start_at and self.start_at > now().date()
+
+    @property
+    def is_valid_period(self):
+        return self.start_at <= self.end_at
+
+    def validate_challenge(self):
+        if not self.is_valid_period:
+            raise ValidationError({"end_at": "유효하지 않은 챌린지 기간입니다."})
+
+    def clean(self):
+        self.validate_challenge()
+
+    @transaction.atomic
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.clean()
+        return super().save(force_insert, force_update, using, update_fields)
