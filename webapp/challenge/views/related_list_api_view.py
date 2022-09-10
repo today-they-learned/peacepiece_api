@@ -9,6 +9,7 @@ class RelatedListAPIView(ListAPIView):
     filterset_fields = []
     search_fields = []
     ordering_fields = []
+    queryset = Challenge.objects.is_progressing().order_by("-updated_at")
 
     def list(self, request, challenge_id, *args, **kwargs):
         """
@@ -23,7 +24,7 @@ class RelatedListAPIView(ListAPIView):
             .filter(category_id__in=category_ids)
             .values_list("challenge_id", flat=True)
         ]
-        queryset = Challenge.objects.is_progressing().filter(pk__in=challenge_ids)
+        queryset = self.get_queryset().filter(pk__in=challenge_ids)
 
         page = self.paginate_queryset(queryset)
         if page is not None:
