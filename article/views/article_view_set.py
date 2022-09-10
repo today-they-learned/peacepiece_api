@@ -1,3 +1,5 @@
+from itertools import groupby
+
 from django.db import transaction
 from django.db.models import Case, When
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -8,6 +10,7 @@ from article.permissions import IsArticleEditableOrDestroyable
 from article.serializers import ArticleListSerializer, ArticleSerializer, ArticleUpdateSerializer
 from config.viewsets import BaseModelViewSet
 from feedback.models import ArticleFeedback, ArticleUserFeedback
+from feedback.serializers import ArticleFeedbackSerializer
 from point.models import Point
 
 
@@ -46,24 +49,62 @@ class ArticleViewSet(BaseModelViewSet):
     def get_user_feedbacks(self):
         if self.is_anonymous_user:
             return []
-        article = self.get_object()
-        # ArticleUserFeedback.objects.filter(article=article, user=self.current_user).values_list('feedback', flat=True)
-        return []
 
-    def get_user_feedbacks_by_article_id(self):
-        if self.is_anonymous_user:
-            return {}
-        return {}
+        return ArticleUserFeedback.objects.filter(user=self.current_user).order_by("article_id")
+
+    def get_user_feedback_ids_by_article_id(self):
+        user_feedbacks = self.get_user_feedbacks()
+
+        return dict(
+            [
+                [article_id, [*map(lambda auf: auf.feedback_id, ufs)]]
+                for article_id, ufs in groupby(user_feedbacks, lambda uf: uf.article_id)
+            ]
+        )
+
+    # def get_feedback_ids_by_user(self):
+    #     if self.is_anonymous_user:
+    #         return []
+    #     article = self.get_object()
+    #     current_user_article_feedbacks = ArticleUserFeedback.objects.filter(
+    #         article=article,
+    #         user=self.current_user,
+    #     )
+
+    #     return [*current_user_article_feedbacks.values_list('feedback_id', flat=True)]
 
     def get_feedbacks(self):
         if self.is_anonymous_user:
             return []
-        return []
+        article = self.get_object()
+        user_feedback_ids_by_article_id = self.get_user_feedback_ids_by_article_id()
+
+        return ArticleFeedbackSerializer(
+            ArticleFeedback.objects.filter(article=article).select_related("feedback"),
+            many=True,
+            context={"feedback_ids_by_user": user_feedback_ids_by_article_id.get(article.id, [])},
+        ).data
 
     def get_feedbacks_by_article_id(self):
-        if self.is_anonymous_user:
-            return {}
-        return {}
+        article_feedbacks = ArticleFeedback.objects.all().select_related("feedback").order_by("article_id")
+        user_feedback_ids_by_article_id = self.get_user_feedback_ids_by_article_id()
+
+        return dict(
+            [
+                [
+                    article_id,
+                    [
+                        *map(
+                            lambda auf: ArticleFeedbackSerializer(
+                                auf, context={"feedback_ids_by_user": user_feedback_ids_by_article_id.get(article_id)}
+                            ).data,
+                            afs,
+                        )
+                    ],
+                ]
+                for article_id, afs in groupby(article_feedbacks, lambda af: af.article_id)
+            ]
+        )
 
     def get_serializer_context(self):
         """
@@ -73,10 +114,8 @@ class ArticleViewSet(BaseModelViewSet):
 
         if self.action == "list" or self.action == "create":
             context["feedbacks_by_article_id"] = self.get_feedbacks_by_article_id()
-            context["user_feedbacks_by_article_id"] = self.get_user_feedbacks_by_article_id()
         else:
             context["feedbacks"] = self.get_feedbacks()
-            context["user_feedbacks"] = self.get_user_feedbacks()
 
         return context
 

@@ -31,6 +31,8 @@ class ArticleSerializer(WritableNestedModelSerializer):
         read_only=True,
     )
 
+    feedbacks = serializers.SerializerMethodField()
+
     class Meta:
         """Meta definition for ArticleSerializer."""
 
@@ -43,6 +45,7 @@ class ArticleSerializer(WritableNestedModelSerializer):
             "images",
             "challenge_id",
             "challenge",
+            "feedbacks",
             "created_at",
             "updated_at",
         ]
@@ -50,6 +53,7 @@ class ArticleSerializer(WritableNestedModelSerializer):
         read_only_fields = [
             "id",
             "writer",
+            "feedbacks",
             "created_at",
             "updated_at",
         ]
@@ -59,3 +63,6 @@ class ArticleSerializer(WritableNestedModelSerializer):
                 "required": True,
             }
         }
+
+    def get_feedbacks(self, article):
+        return self.context.get("feedbacks", [])

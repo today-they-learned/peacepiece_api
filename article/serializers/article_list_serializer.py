@@ -56,19 +56,7 @@ class ArticleListSerializer(BaseModelSerializer):
             "feedbacks",
         ]
 
-    def get_is_feedbacked(self, article, feedback):
-        if self.is_anonymous_user:
-            return False
-        return ArticleUserFeedback.objects.filter(article=article, feedback=feedback, user=self.current_user).exists()
-
     def get_feedbacks(self, article):
-        result = []
+        feedbacks_by_article_id = self.context.get("feedbacks_by_article_id", {})
 
-        # for article_feedback in self.context.get("feedbacks"):
-        #     feedback_dict = {}
-        #     feedback_dict["emoji"] = article_feedback.feedback.emoji
-        #     feedback_dict["count"] = article_feedback.count
-        #     feedback_dict["is_feedbacked"] = self.get_is_feedbacked(article, article_feedback.feedback)
-        #     result.append(feedback_dict)
-
-        return result
+        return feedbacks_by_article_id.get(article.id, {})
