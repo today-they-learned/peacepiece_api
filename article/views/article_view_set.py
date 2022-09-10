@@ -1,5 +1,5 @@
+from django.db import transaction
 from django.db.models import Case, When
-from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
@@ -7,6 +7,7 @@ from article.models import Article
 from article.permissions import IsArticleEditableOrDestroyable
 from article.serializers import ArticleListSerializer, ArticleSerializer, ArticleUpdateSerializer
 from config.viewsets import BaseModelViewSet
+from point.models import Point
 from feedback.models import ArticleFeedback
 
 
@@ -42,8 +43,27 @@ class ArticleViewSet(BaseModelViewSet):
 
         return ArticleListSerializer
 
+    @transaction.atomic
     def perform_create(self, serializer):
-        return serializer.save(writer=self.request.user)
+        article = serializer.save(writer=self.request.user)
+
+        if article.challenge is not None:
+
+            challenge = article.challenge
+
+            point = Point(
+                user=self.current_user,
+                challenge=challenge,
+                article=article,
+                point_category="prove_challenge",
+                amount=challenge.point,
+            )
+            point.save()
+
+            self.current_user.point += challenge.point
+            self.current_user.save()
+
+        return article
 
     def create(self, request, *args, **kwargs):
         """

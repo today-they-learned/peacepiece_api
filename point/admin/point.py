@@ -7,4 +7,10 @@ from point.models import Point
 class PointAdmin(admin.ModelAdmin):
     """Admin View for Point"""
 
-    list_display = ("amount",)
+    list_display = (
+        "user",
+        "challenge",
+        "article",
+        "item",
+        "amount",
+    )
