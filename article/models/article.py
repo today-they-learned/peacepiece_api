@@ -58,6 +58,9 @@ class Article(BaseModel):
         if self.challenge.is_ended:
             raise ValidationError({"challenge": "종료한 챌린지입니다."})
 
+        if self.challenge.is_start:
+            raise ValidationError({"challenge": "시작하지 않은 챌린지입니다."})
+
     def clean(self):
         self.validate_challenge()
 
