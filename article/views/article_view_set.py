@@ -8,6 +8,7 @@ from article.permissions import IsArticleEditableOrDestroyable
 from article.serializers import ArticleListSerializer, ArticleSerializer, ArticleUpdateSerializer
 from config.viewsets import BaseModelViewSet
 from point.models import Point
+from feedback.models import ArticleFeedback
 
 
 class ArticleViewSet(BaseModelViewSet):
@@ -74,7 +75,10 @@ class ArticleViewSet(BaseModelViewSet):
         """
         글의 상세 내용을 반환합니다.
         """
-        return super().retrieve(request, *args, **kwargs)
+        instance = self.get_object()
+        feedbacks = ArticleFeedback.objects.filter(article=instance)
+        serializer = self.get_serializer(instance, context={"feedbacks": feedbacks, "request": request})
+        return Response(serializer.data)
 
     def update(self, request, *args, **kwargs):
         """

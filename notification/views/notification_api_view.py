@@ -37,10 +37,6 @@ class NotificationViewSet(BaseViewSet):
         알림 전체 읽음 처리
         """
 
-        notifications = Notification.objects.filter(user=request.user, is_viewed=False)
-
-        for notification in notifications:
-            notification.is_viewed = True
-            notification.save()
+        notifications = Notification.objects.filter(user=request.user, is_viewed=False).update(is_viewed=True)
 
         return Response(status=status.HTTP_200_OK)
