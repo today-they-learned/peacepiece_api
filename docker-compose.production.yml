@@ -6,8 +6,8 @@ services:
     volumes:
       - ./webapp:/usr/src/app
       - ./logs:/var/logs/
-      - staticfiles:/usr/src/app/static
-      - mediafiles:/usr/src/app/media
+      - staticfiles:/usr/src/app/staticfiles
+      - mediafiles:/usr/src/app/mediafiles
     build:
       context: ./webapp
       dockerfile: ./Dockerfile.production
