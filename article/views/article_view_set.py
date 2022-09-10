@@ -7,8 +7,8 @@ from article.models import Article
 from article.permissions import IsArticleEditableOrDestroyable
 from article.serializers import ArticleListSerializer, ArticleSerializer, ArticleUpdateSerializer
 from config.viewsets import BaseModelViewSet
+from feedback.models import ArticleFeedback, ArticleUserFeedback
 from point.models import Point
-from feedback.models import ArticleFeedback
 
 
 class ArticleViewSet(BaseModelViewSet):
@@ -36,12 +36,49 @@ class ArticleViewSet(BaseModelViewSet):
     ordering = ["-updated_at"]
 
     def get_serializer_class(self):
-        if self.action == "create":
+        if self.action == "create" or self.action == "retrieve":
             return ArticleSerializer
         if self.action == "update" or self.action == "partial_update":
             return ArticleUpdateSerializer
 
         return ArticleListSerializer
+
+    def get_user_feedbacks(self):
+        if self.is_anonymous_user:
+            return []
+        article = self.get_object()
+        # ArticleUserFeedback.objects.filter(article=article, user=self.current_user).values_list('feedback', flat=True)
+        return []
+
+    def get_user_feedbacks_by_article_id(self):
+        if self.is_anonymous_user:
+            return {}
+        return {}
+
+    def get_feedbacks(self):
+        if self.is_anonymous_user:
+            return []
+        return []
+
+    def get_feedbacks_by_article_id(self):
+        if self.is_anonymous_user:
+            return {}
+        return {}
+
+    def get_serializer_context(self):
+        """
+        Extra context provided to the serializer class.
+        """
+        context = {"request": self.request, "format": self.format_kwarg, "view": self}
+
+        if self.action == "list" or self.action == "create":
+            context["feedbacks_by_article_id"] = self.get_feedbacks_by_article_id()
+            context["user_feedbacks_by_article_id"] = self.get_user_feedbacks_by_article_id()
+        else:
+            context["feedbacks"] = self.get_feedbacks()
+            context["user_feedbacks"] = self.get_user_feedbacks()
+
+        return context
 
     @transaction.atomic
     def perform_create(self, serializer):
@@ -75,10 +112,8 @@ class ArticleViewSet(BaseModelViewSet):
         """
         글의 상세 내용을 반환합니다.
         """
-        instance = self.get_object()
-        feedbacks = ArticleFeedback.objects.filter(article=instance)
-        serializer = self.get_serializer(instance, context={"feedbacks": feedbacks, "request": request})
-        return Response(serializer.data)
+
+        return super().retrieve(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
         """

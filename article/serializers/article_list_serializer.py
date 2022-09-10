@@ -64,11 +64,11 @@ class ArticleListSerializer(BaseModelSerializer):
     def get_feedbacks(self, article):
         result = []
 
-        for article_feedback in self.context.get("feedbacks"):
-            feedback_dict = {}
-            feedback_dict["emoji"] = article_feedback.feedback.emoji
-            feedback_dict["count"] = article_feedback.count
-            feedback_dict["is_feedbacked"] = self.get_is_feedbacked(article, article_feedback.feedback)
-            result.append(feedback_dict)
+        # for article_feedback in self.context.get("feedbacks"):
+        #     feedback_dict = {}
+        #     feedback_dict["emoji"] = article_feedback.feedback.emoji
+        #     feedback_dict["count"] = article_feedback.count
+        #     feedback_dict["is_feedbacked"] = self.get_is_feedbacked(article, article_feedback.feedback)
+        #     result.append(feedback_dict)
 
         return result
