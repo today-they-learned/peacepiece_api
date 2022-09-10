@@ -62,17 +62,6 @@ class ArticleViewSet(BaseModelViewSet):
             ]
         )
 
-    # def get_feedback_ids_by_user(self):
-    #     if self.is_anonymous_user:
-    #         return []
-    #     article = self.get_object()
-    #     current_user_article_feedbacks = ArticleUserFeedback.objects.filter(
-    #         article=article,
-    #         user=self.current_user,
-    #     )
-
-    #     return [*current_user_article_feedbacks.values_list('feedback_id', flat=True)]
-
     def get_feedbacks(self):
         if self.is_anonymous_user:
             return []
