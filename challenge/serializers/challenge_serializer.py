@@ -25,4 +25,5 @@ class ChallengeSerializer(ChallengeAbstractSerializer):
             "images",
             "start_at",
             "end_at",
+            "is_ended",
         ]
