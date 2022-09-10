@@ -81,4 +81,4 @@ class Challenge(BaseModel):
 
     @property
     def is_ended(self):
-        return self.end_at and self.end_at <= now().date()
+        return self.end_at and self.end_at < now().date()
