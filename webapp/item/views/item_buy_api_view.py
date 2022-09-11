@@ -1,14 +1,10 @@
 from item.models import Item
-from item.serializers import BuyableItemListSerializer
-from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 
 
 class ItemBuyAPIView(CreateAPIView):
     permission_classes = [IsAuthenticated]
-    # serializer_class = BuyableItemListSerializer
     queryset = Item.objects.all()
 
     def create(self, request, item_id, item_cnt, *args, **kwargs):
