@@ -18,6 +18,7 @@ class ItemListSerializer(BaseModelSerializer):
         fields = [
             "id",
             "name",
+            "category",
             "point",
             "thumbnail",
             "buyable_context",
@@ -26,6 +27,7 @@ class ItemListSerializer(BaseModelSerializer):
         read_only_fields = [
             "id",
             "name",
+            "category",
             "point",
             "thumbnail",
             "buyable_context",
