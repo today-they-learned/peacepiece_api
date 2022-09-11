@@ -82,6 +82,12 @@ class User(AbstractBaseUser, BaseModel, PermissionsMixin):
         verbose_name="소지 포인트",
     )
 
+    reminder_categories = models.ManyToManyField(
+        "challenge.Category",
+        related_name="users",
+        through="challenge.ChallengeReminder",
+    )
+
     objects = UserManager()
 
     class Meta:

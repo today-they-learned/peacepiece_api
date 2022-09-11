@@ -11,6 +11,7 @@ from rest_framework.settings import api_settings
 class ChallengeReminderAPIView(CreateAPIView, GenericAPIView):
     serializer_class = ChallengeReminderSerializer
     queryset = ChallengeReminder.objects.all()
+    pagination_class = None
 
     def get_success_headers(self, data):
         try:
