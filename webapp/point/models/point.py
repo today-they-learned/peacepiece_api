@@ -6,7 +6,7 @@ from user.models import User
 class Point(BaseModel):
     """Model definition for Point"""
 
-    POINT_CATEGORY_CHOICES = (
+    CATEGORY_CHOICES = (
         ("buy_item", "아이템 구매"),
         ("prove_challenge", "챌린지 인증 글 작성"),
     )
@@ -38,8 +38,8 @@ class Point(BaseModel):
         related_name="points",
         blank=True,
     )
-    point_category = models.CharField(
-        choices=POINT_CATEGORY_CHOICES,
+    category = models.CharField(
+        choices=CATEGORY_CHOICES,
         max_length=30,
         verbose_name="포인트 종류",
         null=True,

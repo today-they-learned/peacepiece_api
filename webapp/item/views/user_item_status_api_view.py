@@ -1,6 +1,6 @@
 from config.views import BaseAPIView
 from django.contrib.auth import get_user_model
-from django.db.models import Count, F, Sum
+from django.db.models import F, Sum
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated

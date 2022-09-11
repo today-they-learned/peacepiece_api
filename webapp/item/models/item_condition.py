@@ -34,8 +34,11 @@ class ItemCondition(BaseModel):
         verbose_name = "ItemCondition"
         verbose_name_plural = "ItemConditions"
 
-    def is_buyable(self, user_owned_items):
+    def is_buyable(self, user_owned_items, user_point=0):
         user_owned_item = user_owned_items.filter(item=self.item).first()
+
+        if user_point < self.item.point:
+            return False
 
         if user_owned_item and user_owned_item.count >= self.max_count:
             return False
