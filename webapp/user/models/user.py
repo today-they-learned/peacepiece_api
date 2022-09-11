@@ -1,6 +1,17 @@
+import random
+
 from config.models import BaseModel
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.files import File
 from django.db import models
+
+AVATAR_IMAGE_COUNT = 21
+
+RANDOM_PROFILE = [f"avatars/{idx + 1}.jpg" for idx in range(AVATAR_IMAGE_COUNT)]
+
+
+def get_random_profile_filename():
+    return random.choice(RANDOM_PROFILE)
 
 
 def user_avatar_upload_path(instance, filename):
@@ -86,3 +97,10 @@ class User(AbstractBaseUser, BaseModel, PermissionsMixin):
 
     def __str__(self) -> str:
         return f"[{self.id}] {self.username} ({self.email})"
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self._state.adding:
+            filename = get_random_profile_filename()
+            f = open("staticfiles/" + filename, "rb")
+            self.avatar = File(f)
+        super().save(force_insert, force_update, using, update_fields)
