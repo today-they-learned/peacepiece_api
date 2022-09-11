@@ -33,10 +33,10 @@ class ChallengeSuggestionFeedback(BaseModel):
 
     @transaction.atomic
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        self.suggestion.reset_feedback_count()
         super().save(force_insert, force_update, using, update_fields)
+        self.suggestion.reset_feedback_count()
 
     @transaction.atomic
     def delete(self, using=None, keep_parents=False):
-        self.suggestion.reset_feedback_count()
         super().delete(using, keep_parents)
+        self.suggestion.reset_feedback_count()
