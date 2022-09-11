@@ -9,6 +9,7 @@ class Item(BaseModel):
         ("map", "map"),
         ("animal", "animal"),
         ("item", "item"),
+        ("tree", "tree"),
     )
 
     name = models.CharField(

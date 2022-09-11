@@ -119,7 +119,7 @@ class ArticleViewSet(BaseModelViewSet):
                 user=self.current_user,
                 challenge=challenge,
                 article=article,
-                point_category="prove_challenge",
+                category="prove_challenge",
                 amount=challenge.point,
             )
             point.save()
