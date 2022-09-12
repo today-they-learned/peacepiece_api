@@ -8,14 +8,18 @@ class ImageInline(admin.TabularInline):
     model = Challenge.images.through
 
 
+def deep_copy(self):
+    if self.thumbnail is not None:
+        new_image = Image(file=self.thumbnail.file, uploader=self.thumbnail.uploader)
+        new_image.save()
+        self.thumbnail = new_image
+    self.pk = None
+    self.save()
+
+
 def copy_challenge(modeladmin, request, queryset):
     for challenge in queryset:
-        if challenge.thumbnail:
-            temp_image = Image(file=challenge.thumbnail.file, uploader=challenge.thumbnail.uploader)
-            temp_image.save()
-            challenge.thumbnail = temp_image
-        challenge.pk = None
-        challenge.save()
+        deep_copy(challenge)
 
 
 @admin.register(Challenge)
