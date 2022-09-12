@@ -33,8 +33,8 @@ class PointSerializer(WritableNestedModelSerializer):
         fields = [
             "id",
             "user",
-            "challenge_id",
-            "article_id",
+            "challenge",
+            "article",
             "item",
             "category",
             "amount",
@@ -45,8 +45,8 @@ class PointSerializer(WritableNestedModelSerializer):
         read_only_fields = [
             "id",
             "user",
-            "challenge_id",
-            "article_id",
+            "challenge",
+            "article",
             "item",
             "category",
             "amount",
