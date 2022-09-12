@@ -22,6 +22,7 @@ class Notification(BaseModel):
         "user.User",
         on_delete=models.CASCADE,
         null=True,
+        blank=True,
     )
 
     notice_category = models.CharField(choices=NOTICE_CATEGORY_CHOICES, max_length=30, verbose_name="알림 종류")
@@ -30,18 +31,21 @@ class Notification(BaseModel):
         "challenge.Challenge",
         on_delete=models.CASCADE,
         null=True,
+        blank=True,
     )
 
     category = models.ForeignKey(
         "challenge.Category",
         on_delete=models.CASCADE,
         null=True,
+        blank=True,
     )
 
     article = models.ForeignKey(
         "article.Article",
         on_delete=models.CASCADE,
         null=True,
+        blank=True,
     )
 
     is_viewed = models.BooleanField(
