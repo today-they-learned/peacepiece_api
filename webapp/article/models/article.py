@@ -26,7 +26,6 @@ class Article(BaseModel):
         verbose_name="내용",
         null=True,
         blank=True,
-        max_length=300,
     )
 
     images = models.ManyToManyField(
