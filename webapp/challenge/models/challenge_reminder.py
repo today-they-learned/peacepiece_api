@@ -8,11 +8,13 @@ class ChallengeReminder(BaseModel):
     user = models.ForeignKey(
         "user.User",
         on_delete=models.CASCADE,
+        related_name="challenge_reminders",
     )
 
     category = models.ForeignKey(
         "challenge.Category",
         on_delete=models.CASCADE,
+        related_name="challenge_reminders",
     )
 
     class Meta:

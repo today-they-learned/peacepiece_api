@@ -6,6 +6,7 @@ from challenge.views import (
     ChallengeViewSet,
     DailyListAPIView,
     EndedListAPIView,
+    RecommendListAPIView,
     RelatedListAPIView,
     WeeklyListAPIView,
 )
@@ -28,6 +29,11 @@ urlpatterns = [
         "daily/",
         DailyListAPIView.as_view(),
         name="ChallengeDaily",
+    ),
+    path(
+        "recommend/",
+        RecommendListAPIView.as_view(),
+        name="ChallengeRecommend",
     ),
     path(
         "weekly/",

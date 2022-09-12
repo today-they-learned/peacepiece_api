@@ -1,7 +1,6 @@
 from django.contrib import admin
 
 from challenge.models import Challenge
-from file_manager.models import Image
 
 
 class ImageInline(admin.TabularInline):
@@ -26,6 +25,7 @@ class ChallengeAdmin(admin.ModelAdmin):
         "start_at",
         "end_at",
         "prover_cnt",
+        "point",
     )
     inlines = (ImageInline,)
 
