@@ -22,7 +22,13 @@ class RecommendListAPIView(ListAPIView, BaseAPIView):
     def get_queryset(self):
         category_ids = self.get_reminder_category_ids_of_current_user()
         challenge_ids = self.get_recommended_challenge_ids(category_ids)
-        return Challenge.objects.is_progressing().filter(pk__in=challenge_ids)[:2]
+
+        recomemnd_challenges = Challenge.objects.is_progressing().filter(pk__in=challenge_ids)[:2]
+
+        if len(recomemnd_challenges) == 0:
+            return Challenge.objects.is_progressing()
+
+        return recomemnd_challenges
 
     def list(self, request, *args, **kwargs):
         """
