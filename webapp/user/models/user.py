@@ -88,6 +88,11 @@ class User(AbstractBaseUser, BaseModel, PermissionsMixin):
         through="challenge.ChallengeReminder",
     )
 
+    mail_notifiable = models.BooleanField(
+        default=False,
+        verbose_name="메일 알림 설정 여부",
+    )
+
     objects = UserManager()
 
     class Meta:

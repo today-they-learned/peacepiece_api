@@ -1,1 +1,2 @@
+from .mail_notifiable_api_view import MailNotifiableAPIView
 from .user_retrieve_api_view import UserRetrieveAPIView

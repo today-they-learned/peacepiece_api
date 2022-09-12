@@ -17,10 +17,14 @@ class UserAbstractSerializer(BaseModelSerializer):
             "username",
             "email",
             "avatar",
+            "point",
+            "mail_notifiable",
         ]
         read_only_fields = [
             "id",
             "username",
             "email",
             "avatar",
+            "point",
+            "mail_notifiable",
         ]
