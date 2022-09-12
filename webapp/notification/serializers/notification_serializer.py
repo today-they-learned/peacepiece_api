@@ -1,6 +1,7 @@
+from rest_framework import serializers
+
 from article.serializers import ArticleAbstractSerializer
 from notification.models import Notification
-from rest_framework import serializers
 from user.serializers import UserAbstractSerializer
 
 
@@ -15,11 +16,6 @@ class NotificationSerializer(serializers.ModelSerializer):
 
         model = Notification
 
-        fields = [
-            "id",
-            "contributor",
-            "article",
-            "is_viewed",
-        ]
+        fields = ["id", "contributor", "article", "is_viewed", "notice_category"]
 
-        read_only_fields = ["id", "contributor", "article", "is_viewed"]
+        read_only_fields = ["id", "contributor", "article", "is_viewed", "notice_category"]
