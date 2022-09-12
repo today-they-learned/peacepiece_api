@@ -11,9 +11,10 @@ class PointHistoryListAPIView(ListAPIView, BaseAPIView):
     search_fields = []
     ordering_fields = []
     permission_classes = [IsAuthenticated]
+    ordering = "-updated_at"
 
     def get_queryset(self):
-        return Point.objects.filter(user=self.current_user).order_by("-updated_at")
+        return Point.objects.filter(user=self.current_user)
 
     def list(self, request, *args, **kwargs):
         """

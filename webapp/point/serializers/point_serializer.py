@@ -1,9 +1,8 @@
-from article.models import Article
-from challenge.models import Challenge
+from article.serializers import ArticleAbstractSerializer
+from challenge.serializers import ChallengeAbstractSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from item.serializers import ItemSerializer
 from point.models import Point
-from rest_framework import serializers
 from user.serializers import UserAbstractSerializer
 
 
@@ -14,18 +13,12 @@ class PointSerializer(WritableNestedModelSerializer):
         read_only=True,
     )
 
-    challenge_id = serializers.PrimaryKeyRelatedField(
-        source="challenge",
-        queryset=Challenge.objects.all(),
-        write_only=True,
-        required=False,
+    challenge = ChallengeAbstractSerializer(
+        read_only=True,
     )
 
-    article_id = serializers.PrimaryKeyRelatedField(
-        source="article",
-        queryset=Article.objects.all(),
-        write_only=True,
-        required=False,
+    article = ArticleAbstractSerializer(
+        read_only=True,
     )
 
     item = ItemSerializer(
