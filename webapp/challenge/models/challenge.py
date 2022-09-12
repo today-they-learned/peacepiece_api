@@ -6,6 +6,8 @@ from django.db import models, transaction
 from django.db.models import Q
 from django.utils.timezone import now
 
+from file_manager.models import Image
+
 
 class ChallengeModelManager(ModelManager):
     def ended(self):
@@ -103,3 +105,11 @@ class Challenge(BaseModel):
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.clean()
         return super().save(force_insert, force_update, using, update_fields)
+
+    def deep_copy(self):
+        if self.thumbnail is not None:
+            new_image = Image(file=self.thumbnail.file, uploader=self.thumbnail.uploader)
+            new_image.save()
+            self.thumbnail = new_image
+        self.pk = None
+        self.save()

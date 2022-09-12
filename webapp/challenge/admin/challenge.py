@@ -7,6 +7,14 @@ class ImageInline(admin.TabularInline):
     model = Challenge.images.through
 
 
+def copy_challenge(modeladmin, request, queryset):
+    for challenge in queryset:
+        challenge.deep_copy()
+
+
+copy_challenge.short_description = "챌린지를 복사합니다."
+
+
 @admin.register(Challenge)
 class ChallengeAdmin(admin.ModelAdmin):
     """Admin View for Challenge"""
@@ -27,3 +35,5 @@ class ChallengeAdmin(admin.ModelAdmin):
         "start_at",
         "end_at",
     )
+
+    actions = [copy_challenge]
