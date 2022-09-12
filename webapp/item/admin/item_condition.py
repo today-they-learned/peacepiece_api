@@ -1,5 +1,6 @@
 from config.admin import linkify
 from django.contrib import admin
+
 from item.models import ItemCondition
 
 
@@ -12,6 +13,7 @@ class ItemConditionAdmin(admin.ModelAdmin):
         linkify("item"),
         linkify("pre_item_condition"),
         "max_count",
+        "priority",
     )
 
     ordering = ("item",)
