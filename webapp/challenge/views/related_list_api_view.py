@@ -10,6 +10,7 @@ class RelatedListAPIView(ListAPIView):
     search_fields = []
     ordering_fields = []
     queryset = Challenge.objects.is_progressing().order_by("-updated_at")
+    pagination_class = None
 
     def list(self, request, challenge_id, *args, **kwargs):
         """
