@@ -1,6 +1,5 @@
-from django.contrib import admin
-
 from challenge.models import Challenge
+from django.contrib import admin
 
 
 class ImageInline(admin.TabularInline):
@@ -12,13 +11,20 @@ def copy_challenge(modeladmin, request, queryset):
         challenge.deep_copy()
 
 
+def reset_prover_count(modeladmin, request, queryset):
+    for challenge in queryset:
+        challenge.reset_prover_count()
+
+
 copy_challenge.short_description = "챌린지를 복사합니다."
+copy_challenge.short_description = "인증자 수를 초기화합니다."
 
 
 @admin.register(Challenge)
 class ChallengeAdmin(admin.ModelAdmin):
     """Admin View for Challenge"""
 
+    actions = [copy_challenge, reset_prover_count]
     list_display = (
         "id",
         "title",
@@ -29,11 +35,9 @@ class ChallengeAdmin(admin.ModelAdmin):
     )
     inlines = (ImageInline,)
 
-    readonly_fields = ("prover_cnt",)
+    readonly_fields = ()
 
     ordering = (
         "start_at",
         "end_at",
     )
-
-    actions = [copy_challenge]

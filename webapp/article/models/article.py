@@ -65,4 +65,6 @@ class Article(BaseModel):
     @transaction.atomic
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.clean()
-        return super().save(force_insert, force_update, using, update_fields)
+        super().save(force_insert, force_update, using, update_fields)
+        if self.challenge is not None:
+            self.challenge.reset_prover_count()

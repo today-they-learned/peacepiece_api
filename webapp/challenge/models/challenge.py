@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from django.db import models, transaction
 from django.db.models import Q
 from django.utils.timezone import now
-
 from file_manager.models import Image
 
 
@@ -112,4 +111,8 @@ class Challenge(BaseModel):
             new_image.save()
             self.thumbnail = new_image
         self.pk = None
+        self.save()
+
+    def reset_prover_count(self):
+        self.prover_cnt = self.articles.count()
         self.save()
