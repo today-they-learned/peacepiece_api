@@ -17,7 +17,7 @@ def reset_prover_count(modeladmin, request, queryset):
 
 
 copy_challenge.short_description = "챌린지를 복사합니다."
-copy_challenge.short_description = "인증자 수를 초기화합니다."
+reset_prover_count.short_description = "인증자 수를 초기화합니다."
 
 
 @admin.register(Challenge)
