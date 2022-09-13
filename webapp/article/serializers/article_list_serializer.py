@@ -4,7 +4,6 @@ from article.models import Article
 from article.serializers.article_comment_serializer import ArticleCommentSerializer
 from challenge.serializers import ChallengeAbstractSerializer
 from config.serializers import BaseModelSerializer
-from feedback.models import ArticleFeedback, ArticleUserFeedback, Feedback
 from file_manager.serializers import ImageSerializer
 from rest_framework import serializers
 from user.serializers import UserAbstractSerializer

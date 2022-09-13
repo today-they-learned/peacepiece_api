@@ -1,4 +1,5 @@
 from article.models import Article
+from article.serializers.article_comment_serializer import ArticleCommentSerializer
 from challenge.models import Challenge
 from challenge.serializers import ChallengeAbstractSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
@@ -18,6 +19,8 @@ class ArticleSerializer(WritableNestedModelSerializer):
         many=True,
         required=False,
     )
+
+    article_comments = ArticleCommentSerializer(many=True, read_only=True)
 
     challenge_id = serializers.PrimaryKeyRelatedField(
         source="challenge",
@@ -44,6 +47,7 @@ class ArticleSerializer(WritableNestedModelSerializer):
             "images",
             "challenge_id",
             "challenge",
+            "article_comments",
             "feedbacks",
             "created_at",
             "updated_at",
@@ -52,6 +56,7 @@ class ArticleSerializer(WritableNestedModelSerializer):
         read_only_fields = [
             "id",
             "writer",
+            "article_comments",
             "feedbacks",
             "created_at",
             "updated_at",
