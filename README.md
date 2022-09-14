@@ -117,9 +117,6 @@
 
 ```
 > git clone https://github.com/today-they-learned/peacepiece_front.git
-> cd webapp
-> pipenv install
-> pipenv shell
 > docker-compose up -d --build
 ```
 
