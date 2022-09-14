@@ -22,6 +22,7 @@ class ChallengeSerializer(ChallengeAbstractSerializer):
             "prover_cnt",
             "point",
             "thumbnail",
+            "is_proved",
             "images",
             "start_at",
             "end_at",
