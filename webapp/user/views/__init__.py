@@ -1,2 +1,3 @@
 from .mail_notifiable_api_view import MailNotifiableAPIView
+from .user_point_retrieve_api_view import UserPointRetreiveAPIView
 from .user_retrieve_api_view import UserRetrieveAPIView
