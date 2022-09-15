@@ -69,4 +69,4 @@ class ArticleSerializer(WritableNestedModelSerializer):
         }
 
     def get_feedbacks(self, article):
-        return self.context.get("feedbacks", [])
+        return self.context.get("feedbacks") or []

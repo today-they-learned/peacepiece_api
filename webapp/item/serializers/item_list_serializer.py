@@ -34,5 +34,5 @@ class ItemListSerializer(BaseModelSerializer):
         ]
 
     def get_buyable_context(self, obj):
-        buyable_item_check_results: dict = self.context.get("buyable_item_check_results")
-        return buyable_item_check_results.get(obj.id)
+        buyable_item_check_results: dict = self.context.get("buyable_item_check_results") or {}
+        return buyable_item_check_results.get(obj.id, False)

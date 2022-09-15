@@ -28,6 +28,6 @@ class ArticleFeedbackSerializer(serializers.ModelSerializer):
         ]
 
     def get_is_feedbacked(self, article_feedback):
-        feedback_ids_by_user = self.context.get("feedback_ids_by_user", [])
+        feedback_ids_by_user = self.context.get("feedback_ids_by_user") or []
 
         return article_feedback.feedback_id in feedback_ids_by_user

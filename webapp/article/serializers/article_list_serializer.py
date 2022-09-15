@@ -55,6 +55,6 @@ class ArticleListSerializer(BaseModelSerializer):
         ]
 
     def get_feedbacks(self, article):
-        feedbacks_by_article_id = self.context.get("feedbacks_by_article_id", {})
+        feedbacks_by_article_id = self.context.get("feedbacks_by_article_id") or {}
 
         return feedbacks_by_article_id.get(article.id, {})
